@@ -1,0 +1,271 @@
+<app-header></app-header>
+
+<div class="container" style=" background-color: #F6F6F6;">
+            <form method="post">
+                <div>
+                    <header class="panel-heading">
+                    <label>Profile Settings</label>               
+                </header>
+                </div>
+                <div style="padding:24px; background-color: #FFFFFF;margin:24px 24px 24px 24px;">
+                    <div class="tab">
+                        <button class="tablinks bigfont" [class.active]="tab=='account'" (click)="tabClick('','account')">Account</button>
+                        <button class="tablinks bigfont" [class.active]="tab=='change_pass'" (click)="tabClick('','change_pass')">Change Password</button>
+                     </div>
+                     <!-- <input class="form-control" type="file" 
+                            (change)="onChange($event)"> -->
+                
+                    
+
+                    
+                    <!-- <div class="upload-btn-wrapper">
+                        
+                        <input type="file" name="myfile" (change)="onChange($event)"/>
+                      </div> -->
+
+                      <!-- <input type="file"  (change)="onChange($event)" />
+  <label for="file">choose a file</label>
+                      <button class="btn" (click)="onUpload()">Upload a file</button> -->
+
+
+                     <div class="row" id="profile" *ngIf="tab == 'account'" style="flex-direction: row;">
+                        <div class="" style="margin-top: 27px;margin-left: 16px;">
+                            <div class="profile-img" style="height:200px; width:200px;position: relative;">
+                                <img *ngIf="image" [src]="image" style="height: 200px;width: 100%;object-fit: cover;">
+                                <!-- <div class="file btn btn-lg btn-primary">
+                                    <span>Change Photo</span>
+                                    <input type="file" name="file"/>
+                                </div> -->
+                                <label for="upload-photo" style="margin: 0; position: absolute; bottom: 0px; right: 0px;background: #F97738;color:#FFFFFF; height: 22px;width: 22px;display: flex;justify-content: center;align-items: center;"><i class = "fa fa-pencil" (change)="onbtnedit($event)"></i></label>
+                            </div>
+                            <div style="display: flex; justify-content: end; margin-top: 8px;align-items: end;">
+                                
+<input type="file" accept="image/jpeg,image/png" name="photo" id="upload-photo" (change)="onChange($event)" />
+<div class="alertBox" *ngIf='image_format_error' style="width: 100%;">
+    <span class="error " role="alert">Select jpeg file format</span>
+</div>
+<!-- <button (click)="onUpload()" 
+                        class="cust-file-btn">
+                        Upload
+                    </button> -->
+                            </div>
+                        </div>
+                        
+                        <div class="" style="/* width: 100%; */flex-grow: 1;" >
+                            <div class="profile-head" style="margin:48px 16px 16px 72px;">
+                                
+                                        <h5>
+                                            {{first_name}} {{last_name}}
+                                        </h5>
+                                        <!-- <h6>
+                                            {{designation_id__name}}
+                                        </h6> -->
+                                        <div class = "row">
+                                            <div class="email-profile mb-48">
+                                                <img src="../../assets/img/email.svg" style="height:24px; margin: 0px 8px;">
+                                                <span class="contact">{{email}}</span>
+                                            </div>
+                                            <div class="mb-48">
+                                                <img src="../../assets/img/phone.svg" style="height:24px; margin:0px 8px;">
+                                                <span class="contact">{{phone}}</span>
+                                            </div>
+                                        </div>  
+                                        <div><hr class="new1">
+                                        </div>  
+                                        <div class = "row">
+                                            <!-- <div class="col-md-4"> -->
+                                            <div class="status-profile" >
+                                                <div>
+                                                    <img src="../../assets/img/userstat.svg" style="margin-right:8px;">
+                                                    <span class="profile-rating">Status</span>
+                                                </div>
+                                                <div class="mt-8">
+                                                    <span class="profile-value font-green" *ngIf="status=='Active'">{{status}}</span> 
+                                                    <span class="profile-value" *ngIf="status=='Inactive'">{{status}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="" style="border-left: 1px solid #E3E3E3; padding-left:16px; padding-right: 58px;">
+                                                <div>
+                                                    <img src="../../assets/img/pilot.svg" style="margin-right:8px;">
+                                                    <span class="profile-rating">Pilot</span>
+                                                </div>
+                                                <div  class="mt-8">
+                                                    <span class="profile-value">{{pilot}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="" style="border-left: 1px solid #E3E3E3; padding-left:16px;">
+                                                <div>
+                                                    <img src="../../assets/img/customer.svg" style="margin-right:8px;">
+                                                    <span class="profile-rating">Customer</span>
+                                                </div>
+                                                <div  class="mt-8">
+                                                    <span class="profile-value">{{customer_name}}</span>
+                                                </div>
+                                            </div>
+                                            <!-- </div> -->
+                                        </div>                                     
+                                <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Subscription</a>
+                                    </li>
+                                </ul> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="change_pass" *ngIf="tab == 'change_pass'">
+                        
+                        <div class="row mt-32">
+                            <div class="col-md-6 form-group">
+                                <div class="profile_edit">
+                                    <label class="label-ip required">Old Password</label>
+                                    <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="Old Password">
+                                    <span class="has-error error pull-right " *ngIf='is_old_pass' style="color: #FA9260 !important;">This field is required.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <div class="profile_edit">
+                                    <label class="label-ip required">New Password</label>
+                                    <input type="password" [(ngModel)]="new_password" name="new_password" id="new_password" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="New Password">
+                                    <span class="has-error error pull-right " *ngIf='is_pass' style="color: #FA9260 !important;">This field is required.</span>
+                                </div>
+                            </div>
+                        </div>             
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <div class="profile_edit">
+                                <label class="label-ip required">Confirm New Password</label>
+                                <input type="password" [(ngModel)]="confirm_password" name="confirm_password" id="confirm_password" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="Confirm New Password">
+                                <span class="has-error error pull-right " *ngIf='is_confirm_pass' style="color: #FA9260 !important;">This field is required.</span>
+                                </div>
+                            </div>
+                        </div>  
+                        <div style="display: flex;justify-content: space-between;">
+                            <div class="alertBox" >
+                                <span class="error" *ngIf='error'>{{error}}</span>
+                                <span class="success" *ngIf='success'>Password changed Successfully.</span>
+                            </div>
+                            <!-- <div class="alertBox" *ngIf='success'>
+                                
+                            </div> -->
+                            <div class ="d-flex align-items-center justify-content-end">
+                                <button type = "button" class="btn btn-info cust-btn-primary" style="margin-right:0;" (click)="ChangePasswordClick()">Save</button>
+                            </div>   
+                        </div>       
+                      </div>
+                    <!-- <div class="col-md-2">
+                        <div class="profile_edit" *ngIf='edit_flag==false'>
+                        <input type="button" class="profile-edit-btn" name="btnAddMore" (click)="EditProfile()" value="Edit Profile"/>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-4"> -->
+                        <!-- <div class="profile-work">
+                            <p>ADDRESS</p>
+                            <a href="">{{company_id__name}}</a><br/>
+                            <a href="">{{address}}</a><br/>
+                            <a href="">{{state_id__name}}</a><br/>
+                            <a href="">{{country_id__name}}</a>
+                        </div> -->
+                    <!-- </div> -->
+                    <!-- <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="profile_edit" *ngIf='edit_flag==false'>
+                                                <p>{{first_name}}</p>
+                                                </div>
+                                                <div class="profile_edit" *ngIf='edit_flag==true'>
+                                                <input type="text" [value]="first_name" name="first_name" id="first_name" class="form-control hd" [(ngModel)]="first_name" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="profile_edit" *ngIf='edit_flag==false'>
+                                                <p>{{last_name}}</p>
+                                                </div>
+                                                <div class="profile_edit" *ngIf='edit_flag==true'>
+                                                <input type="text" [value]="last_name" name="last_name" id="last_name" class="form-control hd" [(ngModel)]="last_name" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="profile_edit" *ngIf='edit_flag==false'>
+                                                <p>{{email}}</p>
+                                                </div>
+                                                <div class="profile_edit" *ngIf='edit_flag==true'>
+                                                <input type="text" [value]="email" name="email" id="email" class="form-control hd" [(ngModel)]="email" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="profile_edit" *ngIf='edit_flag==false'>
+                                                <p>{{phone}}</p>
+                                                </div>
+                                                <div class="profile_edit" *ngIf='edit_flag==true'>
+                                                <input type="text" [value]="phone" name="phone" id="phone" class="form-control hd" [(ngModel)]="phone" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="error-field">
+                                            <span class="error">{{error}}</span>
+                                        </div>
+                                        <div class="btn-div btn-sm btn-default pull-right">
+                                            <div class="profile_edit" *ngIf='edit_flag==true'>
+                                            <button type = "button" class="btn btn-info" (click)="UpdateProfile(id)">Save</button>
+                                            <button type = "button" class="btn btn-info" (click)="OnCancel()">Cancel</button>
+                                            </div>
+                                        </div>
+                                </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Plan</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Plan</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Users</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>5</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>End Date</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>1/1/2023</p>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div> -->
+                <!-- </div> -->
+            </form>           
+        </div>
+
+<app-footer></app-footer>

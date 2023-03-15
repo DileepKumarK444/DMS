@@ -1,0 +1,289 @@
+{% extends "etl/base.html" %}
+
+{% block additional_styles %}
+<!-- <link href="/static/css/form.css" rel="stylesheet" /> -->
+<!-- <link href="/static/css/select2.min.css" rel="stylesheet" /> -->
+<link href="/static/etl/css/bootstrap-datepicker.css" rel="stylesheet">
+<style>
+    .margin-bottom {
+        margin-bottom: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% load check_permission %}
+
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            Add Master Data
+        </header>
+        <div class="panel-body">
+            <div class="row variant-container form-container">
+                <form  method="POST" enctype="multipart/form-data" id="frmCustomer">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="model_name">Model Name </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="model_name" name="model_name" class="form-control" autocomplete="off" value="">
+                                <span class="has-error text-danger pull-right model_name_error"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="description">Description </label>
+                            <div class="col-sm-8">
+                                <textarea name="description" id="description" rows="2" class="form-control"></textarea>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="cb-type">Type</label>
+                            <div class="col-xs-8">
+                                <select id="cb-type" name="cb-type" class="form-control">
+                                    <option value="">Select Type</option>
+                                    <option value="battery">Battery</option>
+                                    <option value="camera">Camera</option>
+                                    <option value="sensor">Sensor</option>
+                                    <option value="rc">Remote Control</option>
+                                    
+                                </select>
+                                <span class="has-error text-danger pull-right cb-type_error"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="battery">Status </label>
+                            <div class="col-xs-8">
+                                
+                                <!-- <div class="checkbox"> -->
+                                    <label class="checkbox-lbl"><input type="checkbox" value="status" name="status" id="status"><span>Active</span></label>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                        <!-- <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="attachments">Attachments</label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control-file" name="attachments" multiple="" id="attachments">
+                            </div>
+                        </div> -->
+                        <div class="form-group pull-right">
+                            <button type="submit" class="btn btn-group btn-sm btn-primary">Save</button>
+                            <button type="button" class="btn btn-group btn-sm btn-primary btn-reset">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal - Add/Edit Form -->
+<div class="modal fade" id="roleModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Role</h4>
+            </div>
+            <form class="form-horizontal form-container-regular" role="form" id="roleForm" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <div class="col-lg-12">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="control-label" for="role">Role Name *</label>
+                                        <input type="hidden" name="roleid" id="roleid">
+                                        <input type="text" name="role" id="role" class="form-control"
+                                            autocomplete="off">
+                                        <span class="has-error role_error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="group">Select Group *</label>
+                                        <select name="group" id="group" class="form-control">
+                                            {% for group in groups %}
+                                                <option value="{{group.id}}">{{group.name}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <span class="has-error select-error group_error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="description">Description (if any) </label>
+                                        <textarea class="form-control" style="height: auto;" name="description"
+                                            id="description" cols="5" rows="5"></textarea>
+                                        <span class="has-error description_error"></span>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete confirmation -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="confirm" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title">User Role - Delete</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this record?
+            </div>
+            <div class="modal-footer footer-button">
+                <button type="button" data-dismiss="modal" class="btn btn-sm">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary btn-sm" id="delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer footer-button"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+<!-- <script src="/static/js/select2.min.js"></script> -->
+<script src="/static/etl/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    // var group_data = JSON.parse('{{group_data|safe}}');
+    $(document).ready(function () {
+
+        // $( "#activation_date" ).datepicker();
+
+        $('#country').on('change',function(){
+
+            formdata = {
+                'id': $(this).val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/masters/customers/get_state/",
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: JSON.stringify(formdata),
+                success: function (data) {
+                    $('#state').html('')
+                    opt = '<option value="">State</option>'
+                    if(data.data !=''){
+                        resp = JSON.parse(data.data)
+                        for(var k in resp) {
+                            opt += "<option value='"+resp[k].pk+"'>" + resp[k].fields.name + "</option>"
+                        }
+                    }
+                    $('#state').html(opt)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });
+        })
+        // $("#group").select2({
+        //     placeholder: 'Select Group',
+        //     data: group_data,
+        //     multiple: true,
+        // });
+
+        // Add Form
+        // $('.add-new').click(function () {
+        //     document.getElementById("roleForm").reset();
+        //     $('#roleModal').find('.modal-title').html('Add Role');
+        //     $('#roleModal').find('.has-error').html('');
+        //     $('#roleModal').modal();
+        // });
+
+        // Add Role
+        $("#frmCustomer").submit(function (event) {
+            event.preventDefault();
+            formdata = {
+                'roleid': $(this).find('#roleid').val(),
+                'role': $(this).find('#role').val(),
+                'group': $("#group").val(),
+                'description': $(this).find('#description').val()
+            }
+            var formData = $('#frmCustomer').serializeArray();
+            if($("#status").is(':checked'))
+                formData.push({ name: "active", value: 'True' });
+            else
+                formData.push({ name: "active", value: 'False' });
+            
+            console.log(formData);
+            $.ajax({
+                type: "POST",
+                url: "/masters/customers/add/",
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: formData,//JSON.stringify(formdata),
+                success: function (data) {
+                    $('.has-error').html('');
+                    if (data.success  == true ) {
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Success');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        $("#infoModal").modal().on('hidden.bs.modal', function () {
+                            location.reload();
+                        });
+                    } 
+                    else if(data.success =='exist'){
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Warning');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        
+                        $("#infoModal").modal();
+                    }
+                    else {
+                        $.each(data.errors, function (key, value) {
+                            $(`.${key}_error`).html(`${value[0]}`);
+                        });
+                    }
+                },
+                error: function (e) {
+                    $('#roleModal').modal('hide');
+                    $("#infoModal").find('.modal-title').html('Error');
+                    $("#infoModal").find('.modal-body').html(`${e.responseJSON.msg}`);
+                    $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                    $("#infoModal").modal();
+                }
+            });
+        });
+
+    });
+</script>
+
+{% endblock %}

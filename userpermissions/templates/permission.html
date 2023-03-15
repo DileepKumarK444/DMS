@@ -1,0 +1,300 @@
+{% extends "etl/base.html" %}
+
+{% block additional_styles %}
+<link href="/static/css/form.css" rel="stylesheet" />
+<style>
+    .margin-bottom {
+        margin-bottom: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% load check_permission %}
+
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            Permissions
+            {% has_permission "add-permission" as is_true %}
+            {% if is_true %}
+            <button class="btn btn-primary btn-sm pull-right add-new">Add New</button>
+            {% endif %}
+
+        </header>
+        <div class="panel-body">
+            <div class="SubHeader">
+                <div class="col-sm-4 pull-right row margin-bottom">
+                    <form method="GET" action="/permissions/manage">
+                        <div class="form-inline">
+                            <span class="pull-right">
+                                <input type="text" placeholder="Search" name="search" class="form-control txt-search"
+                                    autocomplete="off" required="required" value="{{ query }}" />
+                                <button class="btn btn-warning btn-sm" type="submit" id="searchErp">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <a class="btn btn-sm btn-warning" href="/permissions/manage" title="Refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {% if msg %}
+            <div class="alert alert-danger">{{msg}}</div>
+            {% endif %}
+            <table class="table table-hover table-bordered tableheader" id="erpMaster">
+                <thead>
+                    <tr class="Header">
+                        <th># </th>
+                        <th>Name </th>
+                        <th>Code </th>
+                        <th>Description</th>
+                        <th width="10%"><center>Actions</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for permission in permissions%}
+                    <tr class="tablecontent">
+                        <td>{{ forloop.counter0|add:permissions.start_index }}</td>
+                        <td>{{ permission.name }}</td>
+                        <td>{{ permission.code }}</td>
+                        <td>{{ permission.description }}</td>
+                        <td>
+                            <center>
+                                {% has_permission "edit-permission" as is_true %}
+                                {% if is_true %}
+                                <a class="btn btn-xs btn-primary btnEdit" title="Edit" rel="{{ permission.id }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                {% endif %}
+                                {% has_permission "delete-permission" as is_true %}
+                                {% if is_true %}
+                                <a class="btn btn-xs btn-danger btnDel" data-id="{{ permission.id }}"
+                                    href="/permissions/manage" title="Delete">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                {% endif %}
+                            </center>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not permissions%}
+                    <tr>
+                        <td colspan="5">
+                            <div class="col-md-12 text-center"> No records found!</div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <div class="pull-right">
+                {% if permissions.has_other_pages %}
+                <ul class="pagination">
+                    {% if permissions.has_previous %}
+                    <li><a href="?page={{ permissions.previous_page_number }}{{query_url}}">&laquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in permissions.paginator.page_range %}
+                    {% if permissions.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}{{query_url}}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if permissions.has_next %}
+                    <li><a href="?page={{ permissions.next_page_number }}{{query_url}}">&raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<!-- Modal - Add/Edit Form -->
+<div class="modal fade" id="permissionModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Permission</h4>
+            </div>
+            <form class="form-horizontal form-container" role="form" id="permissionForm" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <div class="col-lg-12">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="control-label" for="permission">Permission Name *</label>
+                                        <input type="hidden" name="permissionid" id="permissionid">
+                                        <input type="text" name="permission" id="permission" class="form-control"
+                                            autocomplete="off">
+                                        <span class="has-error permission_error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="description">Description (if any) </label>
+                                        <textarea class="form-control" style="height: auto;" name="description"
+                                            id="description" cols="5" rows="5"></textarea>
+                                        <span class="has-error description_error"></span>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete confirmation -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="confirm" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title">Permission Group - Delete</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this record?
+            </div>
+            <div class="modal-footer footer-button">
+                <button type="button" data-dismiss="modal" class="btn btn-sm">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary btn-sm" id="delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer footer-button"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Add Form
+        $('.add-new').click(function () {
+            document.getElementById("permissionForm").reset();
+            $('#permissionModal').find('.modal-title').html('Add Permission');
+            $('#permissionModal').find('.has-error').html('');
+            $('#permissionModal').modal();
+        });
+
+        // Add group
+        $("#permissionForm").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: $('#permissionid').val() ? "/permissions/manage/update/" : "/permissions/manage/",
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        $('#permissionModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Success');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        $("#infoModal").modal().on('hidden.bs.modal', function () {
+                            location.reload();
+                        });
+                    } else {
+                        $.each(data.errors, function (key, value) {
+                            $(`.${key}_error`).html(`<ul class="errorlist"><li>${value[0]}</li></ul>`);
+                        });
+                    }
+                },
+                error: function (e) {
+                    $('#permissionModal').modal('hide');
+                    $("#infoModal").find('.modal-title').html('Error');
+                    $("#infoModal").find('.modal-body').html(`${e.responseJSON.msg}`);
+                    $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                    $("#infoModal").modal();
+                }
+            });
+        });
+
+        // Edit ERP
+        $(".btnEdit").click(function () {
+            $('#permissionModal').find('.has-error').html('');
+            $('#permissionModal').find('.modal-title').html('Edit Permission');
+            var id = $(this).attr('rel');
+            $('#permissionModal').find('#permissionid').val(id);
+            $('#permissionModal').find('#permission').val($(this).closest('tr').find("td:eq(1)").text());
+            $('#permissionModal').find('#description').val($(this).closest('tr').find("td:eq(3)").text());
+            $("#permissionModal").modal({
+                keyboard: false
+            });
+        });
+
+        $(".btnDel").click(function (e) {
+            e.preventDefault();
+            var link = $(this).attr('href');
+            var id = $(this).data('id');
+            $('#confirm').modal({
+                backdrop: 'static',
+                keyboard: false
+            }).on('click', '#delete', function (e) {
+                $.ajax({
+                    headers: { "X-CSRFToken": '{{csrf_token}}' },
+                    type: "DELETE",
+                    dataType: 'json',
+                    url: `${link}/?id=${id}`,
+                    data: {},
+                    beforeSend: function () { },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = data.url;
+                        } else {
+                            $("#infoModal").find('.modal-title').html('Error');
+                            $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                            $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                            $("#infoModal").modal();
+                        }
+                    }, error: function (error) {
+                        $("#infoModal").find('.modal-title').html('Error');
+                        $("#infoModal").find('.modal-body').html(`${error.responseJSON.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        $("#infoModal").modal();
+                    }
+                })
+            }).on('hidden.bs.modal', function (e) {
+                $(e.currentTarget).unbind();
+            });
+        });
+    });
+</script>
+
+{% endblock %}

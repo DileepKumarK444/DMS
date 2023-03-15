@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>aakash AVM</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- For performance check -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- For performance check -->
+
+  <!-- <link href="./assets/css/bootstrap.min.css" rel= "stylesheet"> -->
+
+  <!-- For performance check -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="styles.scss" rel="stylesheet">
+  <link rel="stylesheet" href="assets/jquery.hotspot.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <!-- For performance check -->
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script> -->
+  
+  <!-- For performance check -->
+  <script
+  src="assets/jquery.hotspot.js"
+  crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <!-- For performance check -->
+
+  <!-- <script type="text/javascript" src="assets/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker.min.css" /> -->
+
+</head>
+<body>
+  <app-root></app-root>
+    <!-- Add the following script at the bottom of the web page (before </body></html>) -->
+  
+  <!-- For performance check -->
+  <!-- <script type="text/javascript" src='https://www.mylivechat.com/chatbutton.aspx?hccid=68268000'>
+
+    
+  // <script type="text/javascript" src='https://www.mylivechat.com/chatbutton.aspx?hccid=68268000'>
+  console.log('sisiraaaaa1')
+  
+  const authToken = localStorage.getItem("token");
+  console.log('authToken', authToken)
+
+  if(authToken){
+    
+  
+      // add_chatinline();
+      function MyLiveChat_OnInit() {
+      var name = localStorage.getItem("name");
+      console.log('name', name)
+      var username = localStorage.getItem("username");
+      console.log('username', username)
+      MyLiveChat_SetUserName(name, username);
+      }
+    }
+  
+  
+ </script> -->
+  <!-- For performance check -->
+
+
+  <script type="text/javascript">
+  $( document ).ready(function() {
+    
+  const authToken = localStorage.getItem("token");
+  if(authToken){
+
+  function add_chatinline(){var hccid=55975340;var nt=document.createElement("script");nt.async=true;nt.src="https://www.mylivechat.com/chatinline.aspx?hccid="+hccid;var ct=document.getElementsByTagName("script")[0];ct.parentNode.insertBefore(nt,ct);
+  }
+
+      add_chatinline();
+      function MyLiveChat_OnInit() {
+      var name = localStorage.getItem("name");
+      var username = localStorage.getItem("username");
+      MyLiveChat_SetUserName(name, username);
+      }
+    }
+    });
+  
+ </script>
+  
+  <!-- <script type="text/javascript">
+	$("#Tokyo").hotspot({
+		mode: 'display',
+		data: [
+			{"x":18,"y":15,"Title":"Motor","Message":"Motor description"},
+			{"x":4,"y":61,"Title":"Frame","Message":"Frame Description"},
+			{"x":25,"y":11,"Title":"Wings","Message":"Wings Description"}
+		],
+		interactivity: "hover"
+	});
+</script> -->
+</body>
+</html>

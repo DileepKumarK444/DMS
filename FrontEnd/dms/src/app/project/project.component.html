@@ -1,0 +1,85 @@
+<app-header></app-header>
+<div class="container" style=" background-color: #F6F6F6;">
+    <!-- <div class="row"> -->
+    <form action="">
+        <div>
+            <header class="panel-heading">
+            <label>Project</label>    
+            <a [routerLink]="" (click)="ProjectList()"  class="btn btn-sm btn-default pull-right" style="padding:0; ">
+                <img src="../../assets/img/list.svg" style = "height:28px;" class= "add-icon">
+            </a>
+     
+        </header>
+        </div>
+        <div class = "project-add">
+            <div class="panel-body">             
+                <div class="main">
+                    <div class="sub-heading">
+                        <label>
+                            Add Project
+                        </label>
+                    </div>
+                    
+                        <div class="row input-container" style="margin-top: 32px;">
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Project Name</label>
+                                <input type="text" maxlength="80" name="projectname" id="project_name" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="Project name" [(ngModel)]="project_name">
+                                <span class="has-error error pull-right project_name_error" *ngIf='is_projectname'>This field is required.</span>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Mission Commander</label>
+                                <select name="mission_commander" id="mission_commander" class="form-control mb-16 cust-input" style = "font-size: .8750em;" [(ngModel)]="mission_commander">
+                                    <option *ngFor="let user of userlist" [value]="user.id">{{user.first_name}}</option>
+                                 </select>
+                                 <span class="has-error error pull-right mission_commander_error" *ngIf='is_missioncommander'>This field is required.</span>
+                            </div>
+
+                        </div>
+                        <div class="row input-container">
+                            <div class=" col-sm-6 form-group">
+                                <!-- <label class="label-ip">Start Date</label>
+                                <input type="date" name="startdate" id="start_date" class="form-control mb-16 cust-input" style = "font-size: .8750em;"  [(ngModel)]="start_date">
+                                <span class="has-error error pull-right start_date_error" *ngIf='start_date_error'>{{start_date_error}}</span> -->
+
+                                <!-- <mat-form-field appearance="fill"> -->
+                                    <!-- <mat-label>Choose a date</mat-label> -->
+                                    <label class="label-ip required">Start Date</label>
+                                    <input name="startdate" [min]="startDate" id="start_date" style = "font-size: .8750em;"  [(ngModel)]="start_date" format="MM/DD/YYYY" class="form-control mb-16 cust-input" matInput [matDatepicker]="picker1" placeholder="MM/DD/YYYY" (click)="picker1.open()">
+                                    <mat-datepicker  #picker1></mat-datepicker>
+                                    <span class="has-error error pull-right start_date_error" *ngIf='start_date_error'>{{start_date_error}}</span>
+                                  <!-- </mat-form-field> -->
+                                  
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">End Date</label>
+                                
+                                <input name="enddate" [min]="startDate" id="end_date" style = "font-size: .8750em;"  [(ngModel)]="end_date" format="MM/DD/YYYY" class="form-control mb-16 cust-input" matInput [matDatepicker]="picker2" placeholder="MM/DD/YYYY" (click)="picker2.open()">
+                                <mat-datepicker  #picker2></mat-datepicker>
+                                <span class="has-error error pull-right end_date_error" *ngIf='end_date_error'>{{end_date_error}}</span>
+                            </div>
+                            
+                        </div>
+                        
+
+                </div>
+                <!-- <alert type="danger" close="closeAlert()" ng-if="error" dismiss-on-timeout="2000">Something happened.</alert> -->
+                <div class="alertBox" *ngIf='!save_st'>
+                    <span class="error" role="alert">{{msg}}</span>
+                </div>
+                <div class="alertBox" *ngIf='save_st'>
+                    <span class="success">{{msg}}</span>
+                </div>
+                <!-- <div class="btn-div btn-sm btn-default pull-right"> -->
+                <div class ="d-flex align-items-center justify-content-end gap-3;">
+                    <button *ngIf='projectsave_permission' type = "button" class="btn btn-info cust-btn-primary" (click)="AddProject()">Save</button>
+                    <button type = "button" class="btn btn-info cust-btn-secondary" (click)="OnCancel()">Cancel</button>
+                </div>
+            </div>
+          </div>
+        
+        
+    </form>
+<!-- </div> -->
+</div>
+
+<app-footer></app-footer>

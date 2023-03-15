@@ -1,0 +1,357 @@
+{% extends "etl/base.html" %}
+
+{% block additional_styles %}
+{% load static %}
+<link rel="stylesheet" href="/static/etl/dists/bootstrap-tagsinput.css">
+<link href="/static/etl/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="{% static 'etl/tagselect/selectize.css' %}" rel="stylesheet">
+
+<style>
+    .margin-bottom {
+        margin-bottom: 4px;
+    }
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    td, th {
+    text-align: left;
+    padding: 6px;
+    }
+    .cust_input{
+        height: 32px;
+        }
+    .bootstrap-tagsinput{
+        display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    padding: 2px 3px;
+    align-items: center;
+    }
+
+    .label-info {
+    background-color: #008578;
+}
+
+.bootstrap-tagsinput .tag{
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    padding: 0px 8px;
+    height: 28px;
+
+}
+.bootstrap-tagsinput>input{
+    height: 28px !important;
+}
+.bootstrap-tagsinput .tag span{
+    color:#58c9f3;
+}
+
+
+.current {
+  color: green;
+}
+
+#pagin li {
+  display: inline-block;
+}
+
+.prev {
+  cursor: pointer;
+}
+
+.next {
+  cursor: pointer;
+}
+
+.last{
+  cursor:pointer;
+  margin-left:5px;
+}
+
+.first{
+  cursor:pointer;
+  margin-right:5px;
+}
+
+   /*
+            * Simple CSS Styles
+            */
+            h1,h2,h3,h4,h5 {
+                margin: 10px 0;
+                padding: 0;
+            }
+            .t-head div {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .row-item {
+                padding: 5px 0;
+                border-top: 1px solid #ccc;
+            }
+            .disabled {
+                pointer-events: none;
+            }
+            .navbar {
+                border-radius: 0;
+            }
+</style>
+{% endblock %}
+
+{% block content %}
+{% load check_permission %}
+
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            Edit Template
+        </header>
+        <div class="panel-body">
+            <div class="row variant-container form-container">
+
+                <form  method="POST" role="form" id="frmProduct" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="hd_id" id="hd_id">
+                    <div class="row" style="padding: 0;margin: 0;display: flex;align-items: end;">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="cb_product_type">Template Name</label>
+                            <input type="text"  id="txt_template_name"  name="txt_template_name" class="form-control pur-date cust_input"  autocomplete="off" value="">
+                            <span class="has-error  text-danger pull-right txt_template_name_error"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label class="control-label" for="cb_category">Sample File</label>
+                            <input type="file"  id="txt_file"  name="txt_file" class="form-control pur-date cust_input" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" autocomplete="off" value="">
+                            <span class="has-error text-danger pull-right  txt_file_error"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-1" style="
+                    margin-bottom: 2px;
+                    display: flex;
+                    justify-content: end;
+                ">
+                        <div class="form-group">
+                            
+                            <button type="submit" name="btn-read-fields" id="btn-read-fields" class="btn btn-group btn-sm btn-primary">Apply</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                </form>
+                <hr/>
+                <form  method="POST" role="form" id="frmProduct1" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- <ul id="pagin"></ul> -->
+
+                    <!-- <div class="col-md-6 col-md-offset-3">
+                        <hr>
+                        <h4>Various songs are listed below:</h4>
+                        <div class="row t-head">
+                            <div class="col-xs-1">#</div><div class="col-xs-5">Song</div><div class="col-xs-4">Artist</div><div class="col-xs-2">Year</div>
+                        </div>
+
+                        <div class="row row-item">
+                            <div class="col-xs-1">{count}</div>
+                            <div class="col-xs-5">{song}</div>
+                        </div>
+
+                        <div class="text-center">
+                            
+                            <ul class="pagination pagination-sm custom-pagination"></ul>
+
+                             prepare necessary element attributes to pass parameters for pagination 
+                            <input type="hidden" id="itemCount" value="">
+                            <input type="hidden" id="pageLimit" value="10">
+                        </div>
+                    </div> -->
+
+                    <div id="dv-fields">
+                        
+                        
+                    </div>  
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" style="display:none;" id="input-tags" class="demo-default" value="">
+                            <span class="has-error  text-danger pull-right log_fields_error"></span>
+                        </div>
+                    </div>
+                <div class="col-md-12" style="margin-top: 12px;display: flex;justify-content: space-between;">
+                    <div>
+                        
+                    </div>
+                    <div >
+                        <button type="button" name="btn-update" id="btn-update" class="btn btn-group btn-sm btn-primary">Save</button>
+                        <button type="button" name="btn-cancel" id="btn-cancel" class="btn btn-sm" >Cancel</button>
+                    </div>
+                </div>
+
+                    </form>
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<!-- Notification -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer footer-button"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+<script src="/static/etl/dists/bootstrap-tagsinput.min.js"></script>
+<script src="/static/etl/js/bootstrap-datepicker.js"></script>
+<script src="{% static 'etl/tagselect/selectize.js' %}"></script>
+<script src="{% static 'etl/tagselect/index.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        PURCHASE_LIMIT = '{{PURCHASE_LIMIT}}'
+        console.log(PURCHASE_LIMIT)
+        var id = '{{id}}'
+        onLoad(id)
+
+        $('#dv-dynamic').css('display','none')
+
+        $("#frmProduct").submit(function (event) {
+            event.preventDefault();
+
+            var form = $('#frmProduct')[0];
+            var formData = new FormData(form);
+            
+            $.ajax({
+                type: "POST",
+                url: "/masters/log_field_template/get_fields/",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: formData,// JSON.stringify(formData),
+                success: function (data) {
+                    console.log(data.data)
+                    $('.has-error').html('');
+                    if (data.success  == true ) {
+                        $('#input-tags').val(data.data)
+                        $('#input-tags').selectize()[0].selectize.destroy();
+                        $('#input-tags').selectize({
+                            plugins: ["remove_button"],
+                            persist: false,
+                            createOnBlur: true,
+                            create: true
+                        });
+                        $("html").getNiceScroll().resize();
+                    }
+                    else{
+                                $.each(data.errors, function (key, value) {
+                                $(`.${key}_error`).html(`${value[0]}`);
+                            });
+                        }
+
+                    }
+            });
+        })
+
+
+        $('#btn-update').on('click',function(){
+            txt_template_name = $('#txt_template_name').val()
+            log_fields = $('#input-tags').val()
+            var formData = new FormData();
+            formData.append("txt_template_name",txt_template_name);
+            formData.append("id",$('#hd_id').val());
+            formData.append("log_fields",log_fields);
+            $.ajax({
+                type: "POST",
+                url: "/masters/log_field_template/update_fields/",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: formData,// JSON.stringify(formData),
+                success: function (data) {
+                    $('.has-error').html('');
+                    if (data.success  == true ) {
+                        console.log('Success')
+                            $("#infoModal").find('.modal-title').html('Success');
+                            $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                            $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                            $("#infoModal").modal().on('hidden.bs.modal', function () {
+                                location.reload();
+                            });
+                        } 
+                    //     else if(data.success =='exist'){
+                    //         $("#infoModal").find('.modal-title').html('Warning');
+                    //         $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                    //         $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                            
+                    //         $("#infoModal").modal();
+                    // }
+                        else{
+                                $.each(data.errors, function (key, value) {
+                                $(`.${key}_error`).html(`${value[0]}`);
+                            });
+                        }
+
+                }
+            });
+        })
+    });
+
+    function onLoad(id){
+        $.ajax({
+            type: "POST",
+            url: "/masters/log_field_template/get_data/",
+            dataType: 'json',
+            headers: {
+                'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+            },
+            data: { id : id},
+            success: function (data) {
+                // resp = JSON.parse(data.cat)
+                data = data.logTemp
+                template_name = data[0].template_name
+                log_fields = data[0].log_fields
+                $('#txt_template_name').val(template_name)
+                $('#input-tags').val(log_fields)
+                $('#hd_id').val(id)
+
+                $('#input-tags').selectize()[0].selectize.destroy();
+                $('#input-tags').selectize({
+                    plugins: ["remove_button"],
+                    persist: false,
+                    createOnBlur: true,
+                    create: true
+                });
+                $("html").getNiceScroll().resize();
+            }
+
+            });
+    }
+</script>
+
+{% endblock %}

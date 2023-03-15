@@ -1,0 +1,111 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> -->
+<head>
+
+</head>
+<body style = "overflow:hidden">
+    <form action="">
+        <div class="row" style = "margin-right: 0;  margin-left: 0; height: 100vh;">
+            <div class="col-md-8 col-sm-12 d-flex justify-content-center align-items-start">
+                <div class="d-flex justify-content-center flex-column col-md-8">
+                    <div class = "form-group mt-83 mb-100 d-flex align-items-baseline"> 
+                        <img class ="img-logo" src = "../../assets/img/logo_new.svg" style="height: 28px;">
+                        <!-- <label class="label-logo">DMS</label> -->
+                    </div>
+                    <div class = "form-group"> 
+                        <label class="label-login" style = "font-size: 2.5em;">Login</label>
+                        <p class = "mb-50 login-p" style = "font-size: 1.125em; margin-bottom:32px;">
+                            Please Enter Your Details.
+                        </p>
+                    </div>
+                    <div class = "form-group">
+                        <label class="label-input">Username</label>
+                        <input type="text" name="username" id="username" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="Enter Your Email" [(ngModel)]="username">
+                        <!-- <span class="has-error text-danger pull-right username_error"></span> -->
+                    </div>
+                    <div class = "form-group  inputWithIcon">
+                        <label class="label-input">Password</label>
+                        <input [type]="pass_hide ? 'password' : 'text'" name="password" id="password" (keyup.enter)="Login()" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="********" [(ngModel)]="password">
+                        <i aria-hidden="true" [class]="pass_hide ? 'fa fa-eye-slash':'fa fa-eye'" style="position: absolute;right: 5px;top: 33px;font-size: 18px;color: #FDD2BD;cursor: pointer;" (click)="passHideClick()"></i>
+                        <!-- <span class="p-viewer"> -->
+                        <!-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> -->
+                        <!-- <i class="fa fa-eye-slash" id="toggle-password" aria-hidden="true"></i> -->
+                        <!-- <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i> -->
+                        <!-- <span class="has-error text-danger pull-right password_error"></span> -->
+                        <!-- </span> -->
+                    </div>
+                    <div class = "form-group">
+                        <span class="error" [hidden]="!error_status">{{error}}</span>
+                    </div>
+                    <div class = "form-group">
+                        <button type = "button" class="	btn btn-primary btn-sm btn-block cust-btn" (click)="Login()">Login</button>
+                    </div>
+                    <div class = "form-group">
+                        <span class="ml-auto"><a [routerLink]="" (click)="forgot_password()" class="label-forgot float-right" style = "font-size: 1em;">Forgot Password?</a></span>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 cust-right">
+                <!-- <img class ="img-logo" src = "../../assets/img/bg_img.svg"> -->
+            </div>
+            <!-- <div class="col-md-4 cust-right">
+                <img class ="img-logo" src = "../../assets/img/bg_img.svg">
+            </div> -->
+        </div>
+    </form>
+    <footer class="label-footer">
+        <div class="pull-left">
+            <p>2022 © aakash All rights reserved</p>
+            <a href="#" class="go-top">
+           </a>
+        </div>
+     </footer>
+     <!-- <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+
+        // prevent form submit
+        const form = document.querySelector("form");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+    </script> -->
+    <!-- <script type="text/javascript">
+        const authToken = localStorage.getItem("token");
+        if(authToken){
+      
+        function add_chatinline(){var hccid=55975340;var nt=document.createElement("script");nt.async=true;nt.src="https://www.mylivechat.com/chatinline.aspx?hccid="+hccid;var ct=document.getElementsByTagName("script")[0];ct.parentNode.insertBefore(nt,ct);
+        }
+      
+            add_chatinline();
+            function MyLiveChat_OnInit() {
+            var name = localStorage.getItem("name");
+            var username = localStorage.getItem("username");
+            MyLiveChat_SetUserName(name, username);
+            }
+          }
+       </script> -->
+</body>
+<script type="text/javascript">
+
+$(".toggle-password").click(function() {
+
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
+
+</script>

@@ -1,0 +1,93 @@
+
+<app-header></app-header>
+<head>
+
+</head>
+
+<div class="container" style=" background-color: #F6F6F6;">
+    <div class="row">
+    <form action="">
+        <header class="panel-heading" style="font-weight: 400;" >
+            <span>Dashboard</span>
+        </header>
+
+    <!-- <div class="container"> -->
+    <!-- <div class="col-xs-3 col-sm-3 col-md-3 tile" ng-repeat="drone in dronelist">
+        <h3>
+            {{drone.id}}
+          </h3>
+          <p>
+            {{drone.model}}
+          </p>
+    </div> -->
+    <!-- </div> -->
+    <div class ="tile" >
+        <!-- <li *ngFor="let drone of dronelist; let id = index"> -->
+            <div class="grid-container" *ngFor="let drone of dronelist; let id = index" (click)="DroneDetail(drone.id)" >
+            <div class="grid-item">
+                <div class ="tiletitle">
+                <div class ="tiletitle-item">
+                <h1 class="dronehead">
+                {{drone.model}}
+                </h1>
+                <div  [class.drone_status_active]="drone.status" [class.drone_status_inactive]="!drone.status"></div>
+                </div>
+                <div class ="tiletitle-item">
+                    <span class="badge badge-secondary gc" [class.normal] = "drone.error_count<N " [class.medium] = "drone.error_count>N && count<M"  [class.critical] = "drone.error_count>M" style="font-size:8px;" *ngIf="!drone.gc_con_status">GC Not Connected</span>
+                </div>
+                </div>
+            </div>
+            <div class="grid-item">
+            <div class="dronemodel" >
+                <a>
+                    <img  class="drone-tile-img"   src="../../assets/img/drone-tile.svg" style="height:104px;object-fit: cover;">                
+                </a>
+            </div>
+            </div>
+            <div class="grid-item">
+            <div class = "bottompanel" style="gap:6px">
+            <div class="col-md-4 item">  
+                <div class = "distance" >
+                    <img class="imageicon" src="../../assets/img/mdi_signal-distance-variant.svg">
+                    <span class="tinyfont">Distance</span>
+                </div>
+                <div class = "distance" >
+                    <span class="bigfont">{{drone.distance}} KM</span> 
+                </div>
+            </div>
+            <div class = "col-md-4 item">
+                <div class = "plan">
+                    <img class="imageicon" src="../../assets/img/eva_hash-fill.svg">
+                    <span class="tinyfont">Plans</span>
+                </div>
+                <div class = "plan">
+                    <span class="bigfont">{{drone.plans}}</span> 
+                </div>
+            </div>
+            <div class = "col-md-4 item">
+                <div class = "time">
+                    <img class="imageicon" src="../../assets/img/bx_time-five.svg">
+                    <span class="tinyfont">Flight Hours</span>
+                </div>
+                <div class = "time">
+                    <span class="bigfont">{{drone.flying_time}}</span> 
+                </div>
+                <!-- </div> -->
+            </div>
+            </div>
+            </div>
+        </div>
+
+
+        <!-- </li> -->
+    </div>
+    <div *ngIf="dronelen">
+        <span class="d-flex justify-content-center" style="font-size:16px;padding: 12px 40px 16px 40px;" >There is no Drone associated with this Customer! 
+            <!-- <a style=" font-size: 12px;font-weight: 400;color: #A3A2A5;" href="http://localhost:4200/profile">axldrone</a> -->
+        </span>
+    </div>
+    </form>
+</div>
+</div>
+
+<app-footer></app-footer>

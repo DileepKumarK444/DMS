@@ -1,0 +1,700 @@
+<app-header></app-header>
+
+<div class="container" style=" background-color: #F6F6F6; margin-top :80px; padding-top: 20px;">
+   <div>
+   <label class="drone_head">{{drone_details}}</label>
+   <div class="tab">
+      <button class="tablinks bigfont" [class.active]="tab=='flight'" (click)="tabClick('','flight')">Flight Status</button>
+      <button class="tablinks bigfont" [class.active]="tab=='log'" (click)="tabClick('','log')">Logs</button>
+      <button class="tablinks bigfont" [class.active]="tab=='reports'" (click)="tabClick('','reports')">Reports</button>
+      <button class="tablinks bigfont" [class.active]="tab=='more'" (click)="tabClick('','more')">Details</button>
+   </div>
+
+   <div id="London" *ngIf="tab == 'flight'" style="padding:24px; background-color: #F6F6F6;">
+        <div class="d-flex" style= "background-color: #F6F6F6; gap:24px; padding-bottom: 24px; border-bottom: 1px solid #E3E3E3;">
+           <div class="col-sm-4 video-section" style= "background-color: #F6F6F6; padding:0;">
+            <img [src] = "image_drone" style="width:100%; height:100%; object-fit: contain;">
+            </div>
+           <div class="col-sm-8" style="margin:0;padding:0; padding-right: 24px;" >
+            
+            <div class="d-flex section2" style="gap: 24px;" >
+               <div class="col-sm-4 p-0">
+                  <div class="d-flex sec-gen" >
+                     <img class="imageicon2" src="../../assets/img/live_status.svg">
+                        <div  class="group ">
+                           <div class = "param2" >
+                              <span class="lbl-status plan-data lbl-common bigfont font-green" *ngIf="live_status=='Active'">{{live_status}}</span> 
+                              <span class="lbl-status plan-data lbl-common bigfont "*ngIf="live_status=='Inactive'">{{live_status}}</span>                         </div>
+                           <div class = "param2" >
+                              <span class="tinyfont">Live Status</span>
+                        </div>
+                        </div>
+                  </div>
+               </div>
+               <div class="col-sm-4 p-0">
+                  <div  class="d-flex sec-gen" >
+                     <img class="imageicon2" src="../../assets/img/loctn.svg">
+                     <div  class="group ">
+                        <div class = "param2" >
+                           <span class="bigfont">{{live_location}}</span> 
+                       </div>
+                        <div class = "param2" >
+                           <span class="tinyfont">Location</span>
+                       </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-4 p-0" style=" margin-right:24px;">
+                  <div class="d-flex sec-gen" >
+                     <img class="imageicon2" src="../../assets/img/flight_time_icon.svg">
+                        <div  class="group ">
+                           <div class = "param2" >
+                              <span class="bigfont">{{live_flightTime}}</span> 
+                        </div>
+                           <div class = "param2" >
+                              <span class="tinyfont">Flight Time</span>
+                        </div>
+                        </div>
+                  </div>
+               </div>
+
+            </div>
+            <div class="d-flex section2" style="gap: 24px;">
+               <div class="col-sm-4 p-0">
+                  <div  class="d-flex sec-gen" >
+                     <img class="imageicon2" src="../../assets/img/distance_icon.svg">
+                     <div  class="group ">
+                        <div class = "param2" >
+                           <span class="bigfont">{{live_flightDistance}} m</span> 
+                       </div>
+                        <div class = "param2" >
+                           <span class="tinyfont">Distance Covered</span>
+                       </div>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="col-sm-4 p-0">
+                  <div  class="d-flex sec-gen" >
+                     <img class="imageicon2" src="../../assets/img/battery_icon.svg">
+                     <div  class="group ">
+                        <div class = "param2" >
+                           <span class="bigfont">{{live_battery}} mAh</span> 
+                       </div>
+                        <div class = "param2" >
+                           
+                           <span class="tinyfont">Battery Consumed</span>
+                       </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-4 p-0">
+                  <div  class="d-flex sec-gen" >
+                     <img class="imageicon2" src="../../assets/img/altitude_icon.svg">
+                     <div  class="group ">
+                        <div class = "param2" >
+                           <span class="bigfont">{{live_altitude}} m</span> 
+                       </div>
+                        <div class = "param2" >
+                           <span class="tinyfont">Altitude</span>
+                       </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+              <div class="d-flex section1 flex-column">
+                 <div class=" p-0 " style="margin:0;padding:0;">
+                    <div  class="col" style="display: grid;grid-template-columns: repeat(3, 1fr);padding:0;" >
+                       
+                        <div  class="group element">
+                           <div class = "param1" >
+                             <img class="imageicon" src="../../assets/img/projecticon.svg">
+                              <span class="tinyfont">Project</span> 
+                           </div>
+                           <div class = "param1" >
+                              <span class="lbl-status plan-data lbl-common bigfont">{{project_name}}</span> 
+                           </div>
+                           </div>
+
+                           <div  class="group element">
+                              <div class = "param1" >
+                                <img class="imageicon" src="../../assets/img/planicon.svg">
+                                 <span class="tinyfont">Plan</span> 
+                              </div>
+                              <div class = "param1" >
+                                 <span class="lbl-status plan-data lbl-common bigfont">{{plan_name}}</span> 
+                              </div>
+                              </div>
+
+                              <div  class="group element" style="border-right: 0;">
+                                 <div class = "param1" >
+                                   <img class="imageicon" src="../../assets/img/piloticon.svg">
+                                    <span class="tinyfont">Pilot</span> 
+                                 </div>
+                                 <div class = "param1" >
+                                    <span class="lbl-status plan-data lbl-common bigfont">{{pilot_name}}</span> 
+                                 </div>
+                                 </div>
+                       
+                        
+                    </div>
+                 </div>
+                 <div style="margin: 0 16px; border-bottom: .75px solid #E3E3E3;"> 
+                    
+                 </div>
+                 <div class="p-0">
+                  <div  class="col" style="display: grid;grid-template-columns: repeat(3, 1fr);padding:0;" >
+                     <div  class="group element">
+                        <div class = "param1" >
+                           <img class="imageicon" src="../../assets/img/timeicon.svg">
+                           <span class="tinyfont">Scheduled Time</span> 
+                        </div>
+                        <div class = "param1" >
+                           <span class="lbl-status  lbl-common plan-data bigfont">{{scheduled_time}}</span> 
+                        </div>
+                     </div>
+
+                     <div  class="group element">
+                      <div class = "param1" >
+                        <img class="imageicon" src="../../assets/img/operationicon.svg">
+                         <span class="tinyfont">Flight Operation</span> 
+                      </div>
+                      <div class = "param1" >
+                        <span class="alert-success plan-data bigfont" style= "padding-left:4px;" *ngIf="rule_all==true && maintenance_all==true && approval_all==true"  >Checked</span>
+                        <span class="plan-data bigfont" *ngIf="rule_all!=true || maintenance_all!=true || approval_all!=true"  >Not Approved</span>                      </div>
+                   </div>
+
+
+                  <div  class="group element" style="border-right: 0;"></div>
+                  </div>
+                 </div>
+            </div>
+
+         </div>
+
+        </div>
+        <div class="row checklist">
+           <div class="col-sm-6" style="background-color: #ffffff; padding: 16px;">
+              <div  class = "checklistdiv">
+              <div id="accordion3" class= "d-flex flex-column" style="gap: 16px;">
+                 <div class="card-check" >
+                    <div class="card-header d-flex flex-column justify-content-between " [class.rm_bottom_border]="rule_st" (click) = "ruleCLick()" style="cursor: pointer; padding-bottom: 16px;"> 
+                     <div class="d-flex justify-content-between">  
+                     <span class="d-flex align-items-center bigfont-checklist">
+                          <i class="fa fa-chevron-down mr-2" style="font-size:12px; " *ngIf="rule_st"></i>
+                          <i class="fa fa-chevron-right mr-2 " style="font-size:12px" *ngIf="!rule_st"></i> 
+                          Rules</span>
+                          <label class="alert font-orange p-1 m-0 tinyfont-checklist" *ngIf="rule_all==true">Checked</label>
+                          <label class="alert p-1 m-0 tinyfont-unchecked" *ngIf="rule_all!=true">Not Checked</label>
+                        </div>
+                        
+                    </div>
+                    <div id="collapseA" class="collapse" [class.show]="rule_st" [class.bottom_border]="rule_st" data-parent="#accordion3">
+                     <div class="d-flex flex-column pl-2 pr-2 mt-2" style="gap:8px;">
+                       
+                       <div class="d-flex justify-content-between checklist-box" *ngFor = "let r of rules | keyvalue">
+                        <label class="inside-checklist">{{$any(r.value).val}}</label>
+                     <label class="container1">
+                     <input type="checkbox" style="margin-right:14px;"   [(checked)]="rule_ch[$any(r.value).id]"  [(ngModel)]="rule_ch[$any(r.value).id]" class="rules"  (change)="onRuleClick1($any(r.value).id)">                                  
+                     <span class="mark"></span>
+                </label>
+                     </div>
+                       
+                     </div>
+                  </div>
+                 </div>
+                 <div class="card-check">
+                    <div class="card-header d-flex flex-column justify-content-between" [class.rm_bottom_border]="maintenance_st" (click) = "maintenanceCLick()" style="cursor: pointer; padding-bottom: 16px;">
+                     <div class="d-flex justify-content-between">  
+
+                        <span class="d-flex align-items-center bigfont-checklist">
+                          <i class="fa fa-chevron-down mr-2" style="font-size:12px; " *ngIf="maintenance_st"></i>
+                          <i class="fa fa-chevron-right mr-2" style="font-size:12px" *ngIf="!maintenance_st"></i>
+                          Maintenance</span>
+                          <label class="alert font-orange p-1 m-0 tinyfont-checklist" *ngIf="maintenance_all==true">Checked</label>
+                          <label class="alert p-1 m-0 tinyfont-unchecked" *ngIf="maintenance_all!=true">Not Checked</label>
+                     </div>
+                     
+                    </div>
+                    <div id="collapseB" class="collapse" [class.show]="maintenance_st" [class.bottom_border]="maintenance_st" data-parent="#accordion3">
+                      
+                     <div class="d-flex flex-column pl-2 pr-2 mt-2" style="gap:8px;">
+                      <div class="d-flex justify-content-between checklist-box" *ngFor = "let m of maintenances | keyvalue">
+                        <label class="inside-checklist">{{$any(m.value).val}}</label>
+                        <label class="container1">
+                           <input type="checkbox" style="margin-right:14px;"   [(checked)]="maintenance_ch[$any(m.value).id]"  [(ngModel)]="maintenance_ch[$any(m.value).id]" class="rules"  (change)="onMaintenanceClick1($any(m.value).id)">                                  
+                           <span class="mark"></span>
+                         </label>
+                     </div>
+                      
+                     </div>
+                  </div>
+                 </div>
+                 <div class="card-check">
+                    <div class="card-header d-flex flex-column justify-content-between"  [class.rm_bottom_border]="approval_st" (click) = "approvalCLick()" style="cursor: pointer; padding-bottom: 16px;">
+                     <div class="d-flex justify-content-between">  
+   
+                        <span class="d-flex align-items-center bigfont-checklist">
+                          <i class="fa fa-chevron-down mr-2" style="font-size:12px; " *ngIf="approval_st"></i>
+                          <i class="fa fa-chevron-right mr-2" style="font-size:12px" *ngIf="!approval_st"></i>
+                          Approval</span>
+                          <label class="alert font-orange p-1 m-0 tinyfont-checklist" *ngIf="approval_all==true">Checked</label>
+                          <label class="alert p-1 m-0 tinyfont-unchecked" *ngIf="approval_all!=true">Not Checked</label>
+                     </div>
+                     
+                    </div>
+                    <div id="collapseC" class="collapse" [class.show]="approval_st" [class.bottom_border]="approval_st" data-parent="#accordion3">
+                      
+                     <div class="d-flex flex-column pl-2 pr-2 mt-2" style="gap:8px;">
+                      <div class="d-flex justify-content-between checklist-box" *ngFor = "let a of approvals | keyvalue">
+                        <label class="inside-checklist">{{$any(a.value).val}}</label>
+                        <input type="checkbox" style="margin-right:14px;"   [(checked)]="approval_ch[$any(a.value).id]"  [(ngModel)]="approval_ch[$any(a.value).id]" class="rules"  (change)="onApprovalClick1($any(a.value).id)">                                  
+                     </div>
+                      
+                     </div>
+                  </div>
+                 </div>
+                 <div class="">
+                  <input type="button" style="margin-right:0;"  class="btn cust-btn-primary pull-right save-checklist" [disabled]="!is_active_plan" (click)="save_checklist()"  value="Save">
+                  <div class="alertBox" *ngIf='msg'>
+                     <span class="success">Saved Successfully</span>
+                 </div>
+                </div>
+              </div>
+            </div>
+             </div>
+           <div class="col-sm-6" style = "padding: 0 0 24px 24px;">
+            <div class="upcoming bigfont-checklist" role="alert" style= "margin:0; padding: 16px 16px 8px;">
+              <span>Upcoming Schedules</span>
+            </div>
+            <div class="upcoming" role="alert" style="padding:4px;">
+              <table class="table">
+               <thead>
+                   <tr>
+                       <th  style="padding: 0;width: 16px;border: 0 !important;"  ></th>
+                       <th class = "font-schedule-head">#</th>
+                       <th class = "font-schedule-head">Date & Time</th>    
+                       <th class = "font-schedule-head">Project</th>
+                       <th class = "font-schedule-head">Plan</th>
+                       <th  style="padding: 0;width: 16px;border: 0 !important;"  ></th>
+                   <tr>
+               </thead>
+               <tbody>
+                   <tr *ngFor="let plan of upcoming_plans | keyvalue; let id = index">
+                       <td style="padding: 0;width: 16px;border: 0 !important;"></td>
+                       <td class="font-schedule-body">{{id + 1}}</td>
+                       <td class="font-schedule-body">{{$any(plan.value).plan_date}} | {{$any(plan.value).start_time}} - {{$any(plan.value).end_time}}</td>
+                       <td class="font-schedule-body">{{$any(plan.value).project_id__project_name}}</td>
+                       <td class="font-schedule-body">{{$any(plan.value).plan}}</td>
+                       <td style="padding: 0;width: 16px;border: 0 !important;"></td>
+
+                   <tr>
+                  </tr>
+                  <tr *ngIf="upcoming_plans.length==0">
+                     <td  style="padding: 0;width: 16px;border: 0 !important;"  ></td>
+                     <td colspan="4" style="text-align: center;font-size:14px;font-weight: 500;color: #6F6E73;">No Data</td>
+                     <td  style="padding: 0;width: 16px;border: 0 !important;"  ></td>
+                  </tr>
+               </tbody>
+              </table>
+            </div>          
+           </div>
+        </div>
+     </div>
+   </div>
+  
+
+
+
+ 
+   <div id="Paris" *ngIf="tab == 'log'">
+      <div style="display: flex;gap: 24px;justify-content: space-between;">
+      <mat-form-field appearance="standard" style="width: 25%;padding: 0 32px 0px 32px;gap:8px;flex-grow: 1;">
+         
+         <input autocomplete="off" class="form-control mb-16 cust-input" id="txt-search" style="height:24px;position: relative; border: 1px solid #C4C4C5; padding: 6px 3px 6px 32px; background: #fff; line-height: 13px; flex-grow: 1;width: 100%;" matInput (keyup)="applyFilter($event)" placeholder="Search..." #input>
+         <i class='fa fa-search' style="position: absolute; left: 11px; top: 17px; font-size: 16px; height: 40px; color: #6F6E73; "></i>
+      </mat-form-field>
+       <div style="display: flex;align-items: center;gap:24px;width:75%;margin-right: 32px;">
+         
+         
+         <select style="min-width:150px"  id="cb-project-log" class="form-control select-filter cust-input" [(ngModel)]="filter_project[drone_id]" (change)="filterReport(true)">
+            <option value="0" >Select Project</option>
+            <option *ngFor="let project of project_data" value="{{project.id}}" [ngValue]="project.id">{{project.project_name}}</option>
+
+         </select>
+         <select style="min-width:150px" id="cb-plan-log" class="form-control select-filter cust-input" [(ngModel)]="filter_plan[drone_id]" (change)="filterReport(false)">
+            
+            <option value="0" >Select Plan</option>
+            <option *ngFor="let plan of plan_data" value="{{plan.id}}" [ngValue]="plan.id">{{plan.plan}}</option>
+
+         </select>
+         <input style="min-width:325px;font-size: 14px !important;" autocomplete="off" type="text" #sd name="datetimes" id="datetimes" class="form-control cust-input" placeholder="Select dates" (change)="filterReport(false)" >
+         <button type="button"  class="add-icon" (click)="ClearFilter()" style="height: 28px;outline: none;cursor: pointer;"><i class="fa fa-refresh" aria-hidden="true"></i>
+         </button>
+      </div>
+   </div>
+   
+       <div class="mat-elevation-z8 sub-user-list"  style="box-shadow: none;margin: 0px 32px 24px 32px">
+         <table mat-table [dataSource]="dataSource" matSort  style="width:100%">
+       
+           <ng-container matColumnDef="id">
+             <th mat-header-cell *matHeaderCellDef  class="log-head"> # </th>
+             <td mat-cell *matCellDef="let row; let i = index;" class="userlist-body"> {{(i+1)+(paginator.pageIndex * paginator.pageSize)}} </td>
+           </ng-container>
+       
+           
+           <ng-container matColumnDef="log__plan__plan_date">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Date </th>
+             <td mat-cell *matCellDef="let row" class="log-body"> {{row.log.plan.plan_date}} </td>
+           </ng-container>
+       
+           
+           <ng-container matColumnDef="log__plan__start_time">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Time From </th>
+             <td mat-cell *matCellDef="let row" class="log-body"> {{row.log.plan.start_time}} </td>
+           </ng-container>
+       
+           
+       
+           <ng-container matColumnDef="log__plan__end_time">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Time To </th>
+             <td mat-cell *matCellDef="let row" class="log-body"> {{row.log.plan.end_time}} </td>
+           </ng-container>
+
+           <ng-container matColumnDef="log__plan__project__project_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Project </th>
+            <td mat-cell *matCellDef="let row" class="log-body"> {{row.log.plan.project.project_name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="log__plan__plan">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Plan </th>
+            <td mat-cell *matCellDef="let row" class="log-body"> {{row.log.plan.plan}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="flight_time_max">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Flight Time </th>
+            <td mat-cell *matCellDef="let row" class="log-body"> {{row.flight_time_max}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="flight_distance_max">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="log-head"> Flight Distance </th>
+            <td mat-cell *matCellDef="let row" class="log-body"> {{row.flight_distance_max}} m</td>
+          </ng-container>
+       
+           <ng-container  matColumnDef="download"  >
+             <th  mat-header-cell *matHeaderCellDef  class="log-head"><span *ngIf='download_log_permission'> Download </span></th>
+             <td mat-cell *matCellDef="let row" class="log-body"> 
+               <a *ngIf='download_log_permission' [routerLink]="" (click)="file_download(row.id)" class="btn btn-sm btn-default pull-left" style="padding-top:0px;">
+                  <i class = "fa fa-download"></i>    
+               </a>
+             </td>
+           </ng-container>
+       
+           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+           <tr style="cursor: pointer;" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="test($event,row,row.id)" [class.red]="currentRow === row.id"></tr>
+       
+           <tr class="mat-row" *matNoDataRow>
+             <td class="mat-cell" style="text-align: center;" colspan="9">No data </td>
+           </tr>
+         </table>
+       
+         <mat-paginator #paginator [length]="count" [pageIndex]="currentPage" [pageSize]="pageSize" showFirstLastButtons 
+         [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+      </mat-paginator>
+
+      </div> 
+
+      <div  style="border-top: 1px solid #F6F6F6; margin:0px 16px;">
+      </div>
+         <div id="collapseA"  >
+         <div class="d-flex flex-row" style="margin: 0 32px !important;background: #fff;border-top: 1px solid #ddd; ">
+           
+            
+            <div style="width: 100%; padding: 24px; ">
+               <span style="font-family: Work Sans;font-size: 14px;font-weight: 500;color: #4B4A50;">Flight Logs</span>
+               <div style="display: flex;flex-wrap: wrap;gap: 15px;margin-top: 12px;margin-bottom: 12px;">
+               <div style="position: relative;width: 300px;height: 170px;">
+                  <img src="../../assets/video1.jpg" (click)="openPopup(1)" style="width: 100%;height: 170px; border-radius:6px;cursor: pointer;">
+                     <svg width="40px" height="40px" viewBox="0 0 40 40" style="
+                     position: absolute;
+                     left: 44%;
+                     top:41%; cursor: pointer;
+                 " focusable="false" (click)="openPopup(1)"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path opacity="0.54" fill="#000000" d="M20,0 C8.95,0 0,8.95 0,20 C0,31.05 8.95,40 20,40 C31.05,40 40,31.05 40,20 C40,8.95 31.05,0 20,0 L20,0 Z"></path><path fill="#FFFFFF" d="M16,29 L16,11 L28,20 L16,29 L16,29 Z"></path></g></svg>
+               </div>
+               <div style="position: relative;width: 300px;height: 170px;">
+                  <img src="../../assets/video2.jpg" (click)="openPopup(2)" style="width: 100%;height: 170px; border-radius:6px;cursor: pointer;">
+                     <svg width="40px" height="40px" viewBox="0 0 40 40" style="
+                     position: absolute;
+                     left: 44%;
+                     top:41%; cursor: pointer;
+                 " focusable="false" (click)="openPopup(2)"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path opacity="0.54" fill="#000000" d="M20,0 C8.95,0 0,8.95 0,20 C0,31.05 8.95,40 20,40 C31.05,40 40,31.05 40,20 C40,8.95 31.05,0 20,0 L20,0 Z"></path><path fill="#FFFFFF" d="M16,29 L16,11 L28,20 L16,29 L16,29 Z"></path></g></svg>
+               </div>
+            </div>
+            <hr/>
+            <div style="display: flex;flex-wrap: wrap; gap: 15px;">
+               <div style="position: relative;">
+                  <img src="../../assets/image2.png" (click)="openPopupImg(2)" style="width: 300px;height: 170px; border-radius:6px;cursor: pointer;">
+               </div>
+               <div style="position: relative;">
+                  <img src="../../assets/image3.png" (click)="openPopupImg(3)" style="width: 300px;height: 170px; border-radius:6px;cursor: pointer;">
+               </div>
+               <div style="position: relative;">
+                  <img src="../../assets/image5.png" (click)="openPopupImg(5)" style="width: 300px;height: 170px; border-radius:6px;cursor: pointer;">
+               </div>
+               <div style="position: relative;">
+                  <img src="../../assets/image6.png" (click)="openPopupImg(6)" style="width: 300px;height: 170px; border-radius:6px;cursor: pointer;">
+               </div>
+            </div>
+               <div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}" style="background: #0000008f;">
+  <div class="modal-dialog" role="document" style="width: 100%;height: auto;min-width: 896px;min-height: 504px;">
+    <div class="modal-content" style="border: 0;box-shadow: 0px 0px 12px 0px rgb(12, 4, 4);width: 100%;border-radius: 6px;height: 504px;">
+      <div class="modal-body" style="position: relative;border-radius: 6px;background: #000;padding:2px">
+         <i class="fa fa-window-close" aria-hidden="true" (click)="closePopup()" style="
+         position: absolute;
+         right: 18px;
+         top: 18px;
+         color: #f97738;
+         z-index: 100;
+         cursor: pointer;
+     "></i>
+         <video [src]="video" type="video/mp4" style="width:100%;height:100%" poster="/images/w3schools_green.jpg"  autoplay loop muted playsinline="true" webkit-playsinline="true" controls>
+         </video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyleImg}" style="background: #0000008f;">
+  <div class="modal-dialog" role="document" style="width: 100%;height: auto;min-width: 896px;min-height: 504px;">
+    <div class="modal-content" style="border: 0;box-shadow: 0px 0px 12px 0px rgb(12, 4, 4);width: 100%;border-radius: 6px;height: 504px;">
+      <div class="modal-body" style="position: relative;border-radius: 6px;background: #000;padding:2px">
+         <i class="fa fa-window-close" aria-hidden="true" (click)="closePopupImg()" style="
+         position: absolute;
+         right: 18px;
+         top: 18px;
+         color: #f97738;
+         z-index: 100;
+         cursor: pointer;
+     "></i>
+         <img [src]="image_prev" style="height: 100%;width: 100%;">
+      </div>
+    </div>
+  </div>
+</div>
+
+            </div>
+            
+           
+         </div>
+         </div>
+   </div>
+   <div id="Tokyo"  *ngIf="tab == 'reports'" style="display: flex;flex-direction: column;margin: 0px 24px 0px 24px;">
+
+<!-- filtering -->
+<!-- <div style="display: flex;justify-content: space-between;padding: 6px 10px;border-bottom: 1px solid #ddd;">
+      <div style="display: flex;align-items: center;gap:4px">
+         Limit
+         <select class="form-control" style="width:66px" [(ngModel)]="filter_limit[drone_id]">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="-0">All</option>
+         </select>
+
+         <select class="form-control" #type (change)="changeType($event,type.value)" >
+            
+            <option value="0" >Select Type</option>
+            <option  value="plan" >Plan</option>
+            <option value="project">Project</option>
+            <option  value="date">Date</option>
+ 
+         </select>
+         
+         <select class="form-control" [(ngModel)]="filter_plan[drone_id]" *ngIf="typ=='plan'">
+            
+            <option value="0" >Select Plan</option>
+            <option *ngFor="let plan of plan_data" value="{{plan.id}}" [ngValue]="plan.id">{{plan.plan}}</option>
+
+         </select>
+         <select class="form-control" [(ngModel)]="filter_project[drone_id]" *ngIf="typ=='project'">
+            <option value="0" >Select Project</option>
+            <option *ngFor="let project of project_data" value="{{project.id}}" [ngValue]="project.id">{{project.project_name}}</option>
+
+         </select>
+         <input type="text" class="form-control" placeholder="Date from (YYYY-MM-DD)" [(ngModel)]="filter_from_dt[drone_id]" *ngIf="typ=='date'">
+         <input type="text" class="form-control" placeholder="Date to (YYYY-MM-DD)" [(ngModel)]="filter_to_dt[drone_id]" *ngIf="typ=='date'">
+         <button type="button" (click)="filterReport()" class="btn btn-primary">Apply</button>
+      </div>
+   </div> -->
+
+   <div style="display: flex;gap: 24px;justify-content: space-between;">
+      <mat-form-field appearance="standard" style="width: 25%;padding: 0 32px 0px 0px;gap:8px;flex-grow: 1;">
+         
+         <input autocomplete="off" class="form-control mb-16 cust-input" id="txt-search-rpt" style="height:24px;position: relative; border: 1px solid #C4C4C5; padding: 6px 3px 6px 32px; background: #fff; line-height: 13px; flex-grow: 1;width: 100%;" matInput (keyup)="applyFilter1($event)" placeholder="Search..." #input>
+         <i class='fa fa-search' style="position: absolute; left: 11px; top: 17px; font-size: 16px; height: 40px; color: #6F6E73; "></i>
+      </mat-form-field>
+       <div style="display: flex;align-items: center;gap:24px;width:75%;">
+         
+         
+         <select style="min-width:150px" id="cb-project-rpt" class="form-control select-filter cust-input" [(ngModel)]="filter_project_rpt[drone_id]" (change)="getPlanData()">
+            <option value="0" >Select Project</option>
+            <option *ngFor="let project of project_data" value="{{project.p_id}}" [ngValue]="project.p_id">{{project.p_name}}</option>
+
+         </select>
+         <select style="min-width:150px" id="cb-plan-rpt" class="form-control select-filter cust-input" [(ngModel)]="filter_plan_rpt[drone_id]" >
+            
+            <option value="0" >Select Plan</option>
+            <option *ngFor="let plan of plan_data" value="{{plan.p_id}}" [ngValue]="plan.p_id">{{plan.p_name}}</option>
+
+         </select>
+         <input style="min-width:325px;font-size: 14px !important;" autocomplete="off" type="text" #sd name="datetimes-rpt" id="datetimes-rpt" class="form-control cust-input" placeholder="Select dates" >
+         <!-- <button type="button"  class="add-icon" (click)="filterReportRpt()" style="height: 28px;outline: none;cursor: pointer;"><i class="fa fa-refresh" aria-hidden="true"></i></button> -->
+         <div style="
+         display: flex;
+         gap: 4px;
+         align-items: center;
+         justify-content: space-between;
+     ">
+            <img src="../../assets/img/go.png" (click)="filterReportRpt()" class="btn-go"/>
+            <button type="button"  class="add-icon" (click)="ClearFilterRpt()" style="height: 34px;width: 34px;outline: none;cursor: pointer;"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+         </div>
+      </div>
+   </div>
+   <div *ngIf="countRpt==0" class="d-flex justify-content-center" style="
+   padding: 16px;
+   background: #fff;
+   border-bottom:1px solid #E3E3E3;
+">
+      No Data 
+   </div>
+        <div style="display: flex;
+        flex-direction: column;
+        gap: 0px;">
+        
+         <mat-card style="padding: 0;border-bottom:1px solid #E3E3E3;border-radius: 0;"   *ngFor="let r of observableData | async; let i = index;" >
+            <!-- {{r|json}} -->
+            <div class="card-header d-flex justify-content-between" (click) = "rtCardClick(i)" style="cursor: pointer; padding: 12px 16px; border:0;"> 
+               <span class="d-flex align-items-center  report-head">
+                  <i class="fa fa-chevron-down mr-2" style="font-size:12px; " *ngIf="rt_panel[i]"></i>
+                  <i class="fa fa-chevron-right mr-2" style="font-size:12px" *ngIf="!rt_panel[i]"></i> 
+                  Project: {{r.log.plan.project.project_name}}, Plan: {{r.log.plan.plan}}</span>
+                  <span style="float: right;font-size: 14px;color: #4B4A50;font-weight: 400;">
+                     Date: {{r.log.plan.plan_date}}
+                  </span>
+                  
+               
+            </div>
+            <div id="collapseA" class="collapse" [class.show]="rt_panel[i]" data-parent="#accordion3">
+            
+               <div class="d-flex flex-row" style="margin: 16px !important; ">
+                 
+                  
+                  <div style="width: 50%; padding: 24px;">
+                     <canvas id="airspeed_{{i}}" >{{chart[i]}}</canvas>
+                  </div>
+                  <div style="width: 50%; padding: 24px;">
+                     <canvas id="altitude_{{i}}" >{{chart1[i]}}</canvas>
+                  </div>
+                 
+               </div>
+   
+               <div class="smry_div1" style="display: grid; grid-template-columns: repeat(5, 1fr);margin:32px 0px 32px 100px;" >
+                  <div class="d-flex"  style="gap:12px;">
+                     <img _ngcontent-hjd-c54="" src="../../assets/img/flight_time_icon.svg" class="imageicon2">
+                     <div class="d-flex flex-column">
+                        <span style="margin: 0;color: #4B4A50;font-size: 14px;font-weight:500;">{{r.flight_time_max}}</span>
+                        <label style="margin: 0;color: #6F6E73;font-size: 14px;font-weight:400;">Flight Time</label>
+                     </div>
+                  </div>
+                  <div class="d-flex"  style="gap:12px;">
+                     <img _ngcontent-hjd-c54="" src="../../assets/img/distance_icon.svg" class="imageicon2">
+                     <div class="d-flex flex-column">
+                        <span style="margin: 0;color: #4B4A50;font-size: 14px;font-weight:500;">{{r.flight_distance_max}} m</span>
+                        <label style="margin: 0;color: #6F6E73;font-size: 14px;font-weight:400;">Flight Distance</label>
+                     </div>
+                  </div>
+                  <div class="d-flex" style="gap:12px;">
+                     <img _ngcontent-hjd-c54="" src="../../assets/img/air_to_air.svg" class="imageicon2">
+                     <div class="d-flex flex-column">
+                        <span style="margin: 0;color: #4B4A50;font-size: 14px;font-weight:500;">{{r.distance_to_gcs_max}} m</span>
+                        <label style="margin: 0;color: #6F6E73;font-size: 14px;font-weight:400;">Air to Air Distance</label>
+                     </div>
+                  </div>
+                  <div class="d-flex"  style="gap:12px;">
+                     <img _ngcontent-hjd-c54="" src="../../assets/img/payload.svg" class="imageicon2">
+                     <div class="d-flex flex-column">
+                        <span style="color: #4B4A50; font-size: 14px;font-weight:500;">0 kg</span>
+                        <label style="margin: 0;color: #6F6E73;font-size: 14px;font-weight:400;">Payload</label>
+                     </div>
+                  </div>
+                  <div class="d-flex"  style="gap:12px;">
+                     <img _ngcontent-hjd-c54="" src="../../assets/img/battery_icon.svg" class="imageicon2">
+                     <div class="d-flex flex-column">
+                        <span style="color: #4B4A50; font-size: 14px;font-weight:500;">{{r.battery_consumed_max}} mAh</span>
+                        <label style="margin: 0;color: #6F6E73;font-size: 14px;font-weight:400;">Battery Used</label>
+                     </div>
+                  </div>
+                  
+              </div>
+            
+         </div>
+         </mat-card>
+         
+
+         <mat-paginator  #paginator_rpt [length]="countRpt" [pageIndex]="currentPageRpt" [pageSize]="pageSizeRpt" showFirstLastButtons 
+         [pageSizeOptions]="pageSizeOptions" (page)="pageChangedRpt($event)" aria-label="Select page">
+      </mat-paginator>
+         
+
+   </div>
+   </div>
+   <div id="Tokyo"  *ngIf="tab == 'more'"  style="margin-top: 40px;">
+      <div id="Tokyo1"   *ngIf="img1" style="position: relative;">
+         
+         <img (click)="clickHandler($event)" class="imageicon" *ngIf="image" [src]="image" style="height: 400px; width: 800px; align-items: center; display: block; margin: 0px auto 0px auto;">
+      
+      </div>
+      <div id="Tokyo2"   style="position: relative;" *ngIf="img2">
+         <img class="imageicon" *ngIf="image1" [src]="image1" style="height: 400px; width: 800px; align-items: center; display: block; margin: 0px auto 0px auto;">
+      </div>
+      
+      <div style="display: flex; flex-direction: row; gap: 6px; cursor: pointer; justify-content: center;margin-top: 16px;">
+         <span (click)="imgchange(1)" *ngIf="image" class="span_dot" [class.active]="img1"></span>
+         <span (click)="imgchange(2)" *ngIf="image1" class="span_dot" [class.active]="img2"></span>
+      
+      </div>
+
+
+
+
+
+
+      <div style="display: flex;justify-content: space-between; padding: 28px 100px 32px; color: #4B4A50; font-weight: 600; font-size: 26px;" >
+         <h3 style="color: #4B4A50;font-size: 28px;font-weight: 600;">
+            Technical Specs
+         </h3>
+      </div>
+      <!-- {{schema.length}} -->
+      <div *ngIf="schema.length == 0" class="d-flex justify-content-center">
+         No Data
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr);margin: 0px 100px;gap: 28px; padding-bottom:80px;">
+      <div  *ngFor="let s of schema | keyvalue" >
+         <div class="" >
+            <label style="margin: 0;color: #4B4A50; font-size: 16px; font-weight: 500;" class=" spec-head">{{$any(s.value).label}}</label><br>
+            <span class=" spec-body" style="color: #A3A1A4; font-size: 16px;font-weight: 600;" >{{add_features[$any(s.key)]}}</span>
+            </div>
+      </div>
+   </div>
+   </div>
+   
+</div>
+<app-footer></app-footer>

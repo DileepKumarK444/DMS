@@ -1,0 +1,166 @@
+<app-header></app-header>
+<div class="container" style=" background-color: #F6F6F6;">
+    <!-- <div class="row"> -->
+    <form action="">
+        <!-- <div class="panel panel-info"> -->
+            <div>
+                <header class="panel-heading">
+                    <label>Users</label>    
+                    <a [routerLink]="" (click)="SubUserList()" class="btn btn-sm btn-default pull-right">
+                        <img src="../../assets/img/list.svg" style = "height:28px;" class="add-icon">
+                    </a>
+                    </header>
+                </div>
+            <div class = "project-add">
+            <div class="panel-body">
+
+                <div class="main" *ngFor="let user of userdetails">
+                    <div class="sub-heading">
+                        <label>
+                            Update User
+                        </label>
+                    </div>
+                        <div class="row input-container" style="margin-top: 32px;" >
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">First Name</label>
+                                <input type="text" maxlength="80" [value]="firstname" name="firstname" id="firstname"  class="form-control mb-16 cust-input" style = "font-size: .8750em;" [(ngModel)]="firstname">
+                                <span class="has-error error pull-right firstname_error" *ngIf='is_first_name'>This field is required.</span>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Last Name</label>
+                                <input type="text" maxlength="80" [value]="lastname" name="lastname" id="lastname" class="form-control mb-16 cust-input" style = "font-size: .8750em;" [(ngModel)]="lastname">
+                                <span class="has-error error pull-right lastname_error" *ngIf='is_last_name'>This field is required.</span>
+                            </div>
+                           
+                        </div>
+                        <div class="row input-container">
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Email</label>
+                                <input type="text" [value]="email" name="email" id="email" class="form-control mb-16 cust-input" style = "font-size: .8750em;" [(ngModel)]="email" >
+                                <!-- <span class="has-error error pull-right email_error" *ngIf='is_email'>{{email_error}}</span> -->
+                                <span class="has-error error pull-right email_error" *ngIf='email_error'>{{email_error}}</span>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Phone</label>
+                                <input type="text" [value]="phone" name="phone" (change)="phoneChange($event)" id="phone" class="form-control mb-16 cust-input" style = "font-size: .8750em;" [(ngModel)]="phone">
+                                <span class="has-error error pull-right phone_error" *ngIf='phone_error'>{{phone_error}}</span>
+                            </div>
+                            
+                        </div>
+
+                        
+                       
+
+                        <div>
+                            <div class="form-group">
+                                <!-- <label class="checkbox-inline">
+                                    <input (change)="check($event)" type="checkbox"[checked]="pilot" name="pilot" id="pilot" class="" [(ngModel)]="pilot">
+                                    <span class="label-ip">Set as Pilot</span>
+                                </label> -->
+
+                                <label class="container1">
+                                    <input (change)="check($event)" type="checkbox"[checked]="pilot" name="pilot" id="pilot" class="" [(ngModel)]="pilot">
+                                    <span class="mark"></span>Set as Pilot
+                                  </label>
+
+                                <div class="row form-group" *ngIf='pilot==true'>
+                                    <div class="col-sm-3 form-group">
+                                    <label class="label-ip">Pilot License ID</label>
+                                    <input type="text" maxlength="80" name="pilot_license" id="pilot_license" class="form-control mb-16 cust-input" style = "font-size: .8750em;"  [(ngModel)]="pilot_license">
+                                    </div>
+                                    <div class="col-sm-3 form-group">
+                                    <label class="label-ip">Description</label>
+                                    <input type="text" name="description" id="description" class="form-control mb-16 cust-input" style = "font-size: .8750em;"  [(ngModel)]="description">
+                                    </div>
+                                    <!-- <div class="col-sm-3 form-group" style="display: flex;flex-direction: column;">
+                                        <label class="label-ip">License File</label>
+                                        <input type="file" accept="application/pdf" class="" id="validatedCustomFile" (change)="onChange($event)">
+                                        
+                                    </div> -->
+                                    <div class="col-sm-5 form-group cl-file">
+                                    <mat-form-field>
+                                        <div>
+                                        <mat-toolbar>
+                                            <!-- Display files names -->
+                                            <input matInput [(ngModel)]="fileAttr" placeholder="Choose File" readonly name="name"  class="file-label"/>
+                                            <!-- Browse Button -->
+                                            <button class="file-btn" mat-flat-button color="primary" style="border: 0;">Browse File</button>
+                                          
+                                          <!-- Fetch selected filed on change -->
+                                        </mat-toolbar>
+                                          <input
+                                            
+                                            #fileInput
+                                            title=" "
+                                            type="file" accept="application/pdf" 
+                                            class="" 
+                                            id="validatedCustomFile" (change)="onChange($event)"
+                                            name="validatedCustomFile"
+                                            
+                                          />
+                                        
+                                    </div>
+                                </mat-form-field>
+                                </div>
+                                    <!-- download -->
+                                    <div  class="col-sm-1 form-group" style="display: flex;align-items: flex-start;flex-direction: column;"><label class="label-ip">&nbsp;
+                                    </label>
+                                    <img src="../../assets/img/download.png" *ngIf="file_st" (click)="file_download()" style="cursor:pointer;">
+                                    <!-- <a [routerLink]="" (click)="file_download()" class="btn btn-info cust-btn-primary"  style="display: flex;align-items: center; height:30px;color:#ffffff"><i class = "fa fa-download"></i>
+                                    </a> -->
+                                </div>
+
+                                </div>
+                                <!-- <input type="checkbox" name="pilot" id="pilot" class="form-control"  [(ngModel)]="pilot"> -->
+                                <!-- </label> -->
+                            </div>
+                        </div>
+                        <!-- {{profile_schema|json}} -->
+                        <div style="display: flex;" >
+                            <div class="form-group">
+                                <!-- <label class="checkbox-inline">
+                                    <input (change)="check_fields($event)" type="checkbox"[checked]="add_fields" name="add_fields" id="add_fields" class="" [(ngModel)]="add_fields">
+                                    <span class="label-ip">Additional fields</span>
+                                </label> -->
+                                <label class="container1">
+                                    <input (change)="check_fields($event)" type="checkbox"[checked]="add_fields" name="add_fields" id="add_fields" class="" [(ngModel)]="add_fields">
+                                    <span class="mark"></span>Additional fields
+                                  </label>
+                                </div>
+                                <div class="form-group">                             
+                                </div>
+                        </div>
+                        <div class="row input-container dv-dynamic" *ngIf='add_fields==true' >
+                            <div class="col-sm-6 form-group" *ngFor="let item of profile_schema | keyvalue">
+                                
+                                <label class="label-ip">{{$any(item.value).label}}</label>
+                                <input *ngIf="$any(item.value).input_type=='text'" type="text"  class="form-control mb-16 cust-input" style = "font-size: .8750em;" (change)="handleChange(newValue.value,$any(item.key))" #newValue placeholder="{{$any(item.value).label}}" [(value)]="profile_schema_model[$any(item.key)]">
+                        
+                            </div>
+                                                     
+                        </div>
+                        
+
+                </div>
+                <div class="alertBox" *ngIf='error'>
+                    <span class="error" role="alert">{{error}}</span>
+                </div>
+                <div class="alertBox" *ngIf='file_type_error'>
+                    <span class="error">Please select pdf format file</span>
+                </div>
+                <div class="alertBox" *ngIf='success=="true"'>
+                    <span class="success">Updated Successfully</span>
+                </div>
+                <div class ="d-flex align-items-center justify-content-end gap-3;">
+                    <button *ngIf='userupdate_permission' type = "button" class="btn btn-info cust-btn-primary" (click)="UpdateUser()">Save</button>
+                    <button type = "button" class="btn btn-info cust-btn-secondary" (click)="OnCancel()">Reset</button>
+                </div>
+            </div>
+          </div>
+        
+        
+    </form>
+<!-- </div> -->
+</div>
+
+    <app-footer></app-footer>

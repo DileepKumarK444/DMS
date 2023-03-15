@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RRE :: Trintech</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}">
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+    <style>
+        body {
+            background: #005261;
+        }
+
+        .error-template {
+            padding: 120px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .error-actions .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <img class="logo-404" src="{% static 'assets/img/logo_white_letters.png'%}">
+                    <h3 style="color: #fff;">
+                        Oops!</h3>
+                    <h3 style="color: #fff;">
+                        404 Page Not Found</h3>
+                    <div class="error-details" style="color: #fff;">
+                        <p>Sorry, The page you were looking
+                            for is no longer here!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

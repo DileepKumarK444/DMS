@@ -1,0 +1,232 @@
+
+{% load check_permission %}
+<aside>
+	<div id="sidebar"  class="nav-collapse ">
+		<!-- sidebar menu start-->
+		<ul class="sidebar-menu" id="nav-accordion">
+			{% has_permission "dashboard-view" as is_true %}
+			{% if is_true %}
+				<li {% if 'dashboard' in request.path %}class="active"{% endif %}>
+					<a  href="/dashboard" class="dcjq-parent {% if 'dashboard' in request.path %}active{% endif %}">
+						<i class="fa fa-tachometer" aria-hidden="true"></i><span> Dashboard</span>
+					</a>
+				</li>
+			{% endif %}
+			{% has_permission "masters-main-menu" as is_true %}
+			{% if is_true %}
+				<li class="sub-menu">
+					<a href="javascript:;" class="dcjq-parent {% if 'product_type' in request.path %}active {% elif  'category'  in request.path%} active {%  elif 'products' in request.path %} active
+					{%  elif 'country' in request.path %} active 
+					{%  elif 'state' in request.path %} active 
+					{%  elif 'purpose' in request.path %} active 
+					{%  elif 'drone_type' in request.path %} active 
+					{%  elif 'log_field_template' in request.path %} active 
+					{%  elif 'settings' in request.path %} active{% endif %}
+					">
+						<i class="fa fa-th-large"></i>
+					<span>Masters</span>
+					</a>
+					<ul class="sub">
+						
+						{% has_permission "product-type-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'product_type' in request.path %}sub_active{% endif %}" href="/masters/product_type">Product Type</a></li>
+						{% endif %}
+
+						{% has_permission "product-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'category' in request.path %}sub_active{% endif %}" href="/masters/category">Product</a></li>
+						{% endif %}
+
+						{% has_permission "item-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'products' in request.path %}sub_active{% endif %}" href="/masters/products">Items</a></li>
+						{% endif %}
+<!-- ///////////////////////////////////////////////////////////////// -->
+						{% has_permission "country-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'country' in request.path %}sub_active{% endif %}" href="/masters/country">Country</a></li>
+						{% endif %}
+
+						{% has_permission "state-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'state' in request.path %}sub_active{% endif %}" href="/masters/state">State</a></li>
+						{% endif %}
+
+						{% has_permission "purpose-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'purpose' in request.path %}sub_active{% endif %}" href="/masters/purpose">Purpose</a></li>
+						{% endif %}
+
+						{% has_permission "drone-type-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'drone_type' in request.path %}sub_active{% endif %}" href="/masters/drone_type/">Drone Type</a></li>
+						{% endif %}
+
+						<!-- {% has_permission "log-fields-template-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'log_field_template' in request.path %}sub_active{% endif %}" href="/masters/log_field_template/list">Log Template</a></li>
+						{% endif %} -->
+
+						{% has_permission "settings-menu" as is_true %}
+						{% if is_true %}
+						<li ><a class="dcjq-parent {% if 'settings' in request.path %}sub_active{% endif %}" href="/masters/settings">Settings</a></li>
+						{% endif %}
+
+						
+						<!-- <li ><a  href="/dms/masters/dgcaguidelines">DGCA Guidelines</a></li>
+						<li ><a  href="/dms/masters/trainings">Trainings</a></li> -->
+
+					</ul>
+				</li>
+				{% endif %}
+
+				
+
+				{% has_permission "customer-menu" as is_true %}
+				{% if is_true %}
+				<li class="sub-menu">
+					<!-- <a href="javascript:;" class="dcjq-parent {% if 'users' in request.path %}active{% endif %}"> -->
+						
+					<a class="dcjq-parent {% if 'customers' in request.path %}active{% endif %}" href="/masters/customers"><i class="fa fa-users"></i> Customers</a>
+					<!-- </a> -->
+					
+				</li>
+				{% endif %}
+
+				{% has_permission "drone-main-menu" as is_true %}
+				{% if is_true %}
+				<li class="sub-menu">
+					<a href="javascript:;" class="dcjq-parent {% if 'drone-details' in request.path %}active{% endif %}">
+						<i class="fa fa-plane"></i>
+					<span>Drone Management</span>
+					</a>
+					<ul class="sub">
+						{% has_permission "drone-list-menu" as is_true %}
+						{% if is_true %}
+						<li ><a  class="dcjq-parent {% if 'drone-details' in request.path %}sub_active{% endif %}" href="/drone/drone-details/">Drones</a></li>
+						{% endif %}
+						<!-- <li ><a  href="/dms/masters/dgcaguidelines">DGCA Guidelines</a></li>
+						<li ><a  href="/dms/masters/trainings">Trainings</a></li> -->
+
+					</ul>
+				</li>
+				{% endif %}
+
+				{% has_permission "user-menu" as is_true %}
+				{% if is_true %}
+				<li class="sub-menu">
+					<!-- <a href="javascript:;" class="dcjq-parent {% if 'users' in request.path %}active{% endif %}"> -->
+						
+					<a class="dcjq-parent {% if 'users' in request.path %}active{% endif %}" href="/users/list"><i class="fa fa-user"></i> User Management</a>
+					<!-- </a> -->
+					
+				</li>
+				{% endif %}
+				{% has_permission "permissions-main-menu" as is_true %}
+				{% if is_true %}
+				<li class="sub-menu">
+					<a href="javascript:;" class="dcjq-parent {% if 'permissions' in request.path %}active{% endif %}">
+					<i class="fa fa-shield"></i>
+					<span>Permissions</span>
+					</a>
+					<ul class="sub">
+						{% has_permission "group-list" as is_true %}
+						{% if is_true %}
+							<li ><a class="dcjq-parent {% if '/group' in request.path %}sub_active{% endif %}" href="/permissions/group">Permission Groups</a></li>
+						{% endif %}
+						{% has_permission "role-list" as is_true %}
+						{% if is_true %}
+							<li><a class="dcjq-parent {% if 'roles' in request.path %}sub_active{% endif %}" href="/permissions/roles">User Roles</a></li>
+						{% endif %}
+						{% has_permission "permission-list" as is_true %}
+						{% if is_true %}
+							<li><a class="dcjq-parent {% if 'manage' in request.path %}sub_active{% endif %}" href="/permissions/manage">Permissions</a></li>
+						{% endif %}
+						{% has_permission "permission-group-list" as is_true %}
+						{% if is_true %}
+							<li><a class="dcjq-parent {% if 'permission-group' in request.path %}sub_active{% endif %}" href="/permissions/permission-group">Permission Group</a></li>
+						{% endif %}
+						<!-- <li ><a  href="/dms/masters/dgcaguidelines">DGCA Guidelines</a></li>
+						<li ><a  href="/dms/masters/trainings">Trainings</a></li> -->
+
+					</ul>
+				</li>
+				{% endif %}
+
+			<!-- <li class="sub-menu">
+				<a href="javascript:;" >
+					<i class="fa fa-book"></i>
+					<span>Masters</span>
+				</a>
+				<ul class="sub">
+					<li ><a  href="/dms/masters/aircraft">Aircraft</a></li>
+						<li ><a  href="/dms/masters/battery">Battery</a></li>
+						<li ><a  href="/dms/masters/organization">Organization</a></li>
+						<li ><a  href="/dms/masters/users">Users</a></li>
+						<li ><a  href="/dms/masters/customers">Customers</a></li>
+				</ul>
+			</li> -->
+
+				<!-- <li class="sub-menu">
+					<a href="javascript:;" >
+					<i class="fa fa-book"></i>
+					<span>Drone Operations</span>
+					</a>
+					<ul class="sub">
+						<li ><a  href="/dms/masters/operations">Operational Planning</a></li>
+						<li ><a  href="/dms/masters/flightlog">Flight Log</a></li>
+						<li ><a  href="/dms/masters/projects">Project Plan</a></li>
+						<li ><a  href="/dms/masters/maintenance">Maintenance</a></li>
+						<li ><a  href="/dms/masters/inspection">Inspection Tracking</a></li>
+						<li ><a  href="/dms/masters/incidents">Incidents</a></li>
+					</ul>
+				</li> -->
+
+			<!-- <li class="sub-menu">
+					<a href="javascript:;" >
+					<i class="fa fa-book"></i>
+					<span>Reports</span>
+					</a>
+					<ul class="sub">
+						<li ><a  href="/dms/masters/dailyreport">Daily Report</a></li>
+						<li ><a  href="/dms/masters/flightlogs">Flight Logs</a></li>
+						<li ><a  href="/dms/masters/maintenancereport">Maintenance Report</a></li>
+						<li ><a  href="/dms/masters/inspectionreport">Inspection Report</a></li>
+						<li ><a  href="/dms/masters/incidentsreport">Incident Report</a></li>
+					</ul>
+				</li> -->
+
+			<!-- <li class="sub-menu">
+					<a href="javascript:;">
+					<i class="fa fa-book"></i>
+					<span>Guidelines</span>
+					</a>
+					<ul class="sub">
+						<li ><a  href="/dms/masters/faacompliance">FAA Compliance</a></li>
+						<li ><a  href="/dms/masters/dgcaguidelines">DGCA Guidelines</a></li>
+						<li ><a  href="/dms/masters/trainings">Trainings</a></li>
+
+					</ul>
+				</li> -->
+			<!-- <li>
+				<a href="/dms/index/">
+					<i class="fa fa-dashboard"></i>
+					<span>Dashboard</span>
+				</a>
+			</li> -->
+
+
+
+
+
+			<!-- <li>
+				<a  href="/dms/login/">
+					<i class="fa fa-lock"></i>
+					<span>Logout</span>
+				</a>
+			</li> -->
+		</ul>
+		<!-- sidebar menu end-->
+	</div>
+</aside>

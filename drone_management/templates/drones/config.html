@@ -1,0 +1,492 @@
+{% extends "etl/base.html" %}
+{% load static %}
+{% block additional_styles %}
+<link href="/static/etl/css/bootstrap-datepicker.css" rel="stylesheet">
+<link href="/static/etl/css/select2.new.min.css" rel="stylesheet" />
+<style>
+    .margin-bottom {
+        margin-bottom: 4px;
+    }
+.output {
+    width: 100%;
+    height: 100%;
+    /* padding: 0 20px; */
+    /* height: 150px; */
+    /* object-fit: cover; */
+    border: 1px solid #ddd;
+}
+video{
+    width: 300px;
+    border: 1px solid #ddd;
+  /* padding: 0 20px; */
+}
+
+/* input[type="file"] {
+    padding: 0 20px;
+} */
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #e2e2e4 1px;
+    outline: 0;
+}
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #e2e2e4;
+    border-radius: 4px;
+    cursor: text;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    position: relative;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #e2e2e4;
+    border-radius: 4px;
+}
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #e2e2e4;
+    border-radius: 4px;
+    cursor: text;
+    padding-bottom: 0;
+    padding-right: 5px;
+    position: relative;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    cursor: default;
+    padding-left: 2px;
+    padding-right: 5px;
+    color: #fff;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #008578;
+    border: 1px solid #008578;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 0;
+    padding-left: 20px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+.select2-container--default .select2-search--inline .select2-search__field{
+    margin-bottom: 6px;
+}
+.select2-container .select2-selection--multiple {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    min-height: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    background-color: transparent;
+    border: none;
+    border-right: 1px solid #aaa;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+/* select2 select2-container select2-container--default select2-container--below */
+span.select2.select2-container.select2-container--default {
+    width: 100% !important;
+}
+.form-group {
+    /* margin-bottom: 5px; */
+    margin: 0px 12px 5px 12px;
+}
+#view_img, #view_mdi_img{
+    cursor: pointer;
+}
+@media (max-width: 992px){
+.col-md-12 {
+    width: 100%;
+    display: grid;grid-template-columns: repeat(1,1fr) !important;gap: 4px;
+}
+}
+
+.circle {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0,0,255,0.9);
+  border: 2px solid black;
+  position: absolute;
+}
+
+#test {
+  line-height: 0;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: gray;
+  display: inline-block;
+  
+  
+  
+}
+#test img {
+
+    cursor: pointer;
+  }
+.dot {
+  position: absolute;
+  cursor: pointer;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #F97738;
+    border: 1px solid #F97738;
+    box-shadow: 0 0 0 7px #fdd2bd;
+  transition: box-shadow .214s ease-in-out, transform .214s ease-in-out, background .214s ease-in-out;
+  /* padding: 11px 0 0 8px; */
+  color: #fff;
+  margin-left: 6px;
+    margin-top: 4px;
+
+  /* &.ui-draggable-dragging {
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, .5);
+    transform: scale3d(1.2, 1.2, 1.2);
+    background: rgba(white, .7);
+  } */
+}
+
+/* .dot {
+	animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+  }
+  @keyframes blinker {  
+	from { opacity: 1; }
+	to { opacity: 0; }
+  } */
+</style>
+{% endblock %}
+
+{% block content %}
+{% load check_permission %}
+
+<div class="col-lg-6">
+    <section class="panel">
+        <header class="panel-heading">
+            Configuration
+        </header>
+        <div class="panel-body">
+            <div class="row variant-container form-container">
+                <form  method="POST" enctype="multipart/form-data" id="frmConfig" role="form">
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <div class="row">
+                            {{test}}
+                            <div class="col-md-12" style="">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="hd_id" id="hd_id" value="{{id}}">
+                                 <div class="form-group ">
+                                    <label class="col-form-label" for="txt_modal">Template *</label>
+                                    <!--  <div class="col-sm-8"> --> 
+                                        <select id="sb_template" name="sb_template"  class="form-control select">
+                                            <option value="">Select Template</option>
+                                            {% for template in templates %}
+                                                <option value="{{template.id}}" {% if template.id == drone_config.template.id %} selected {% endif %}>{{template.template_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_template_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_host">MAC ID *</label>
+                                    <!-- <div class="col-xs-8"> -->
+                                        <input type="text" id="txt_mac_id" name="txt_mac_id" class="form-control" value="{{drone_config.mac_id}}" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_mac_id_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_host">FC ID *</label>
+                                    <!-- <div class="col-xs-8"> -->
+                                        <input type="text" id="txt_fc_id" name="txt_fc_id" class="form-control" value="{{drone_config.fc_id}}" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_fc_id_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <hr/>
+                                <h5>SSH Details</h5>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_host">Host *</label>
+                                    <!-- <div class="col-xs-8"> -->
+                                        <input type="text" id="txt_host" name="txt_host" class="form-control" value="{{drone_config.host}}" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_host_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_port">Port *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <input type="text" id="txt_port" name="txt_port" class="form-control" value="{{drone_config.port}}" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_port_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_username">Username *</label>
+                                    <input type="text" id="txt_username" name="txt_username" class="form-control" value="{{drone_config.username}}" autocomplete="off" value="">
+                                    <span class="has-error text-danger pull-right txt_username_error"></span>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_password">Password *</label>
+                                    <input type="password" id="txt_password" name="txt_password" class="form-control" value="{{drone_config.password}}" autocomplete="off" value="">
+                                    <span class="has-error text-danger pull-right txt_password_error"></span>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_folder_path">Folder Path *</label>
+                                    <input type="text" id="txt_folder_path" name="txt_folder_path" class="form-control" value="{{drone_config.path}}" autocomplete="off" value="">
+                                    <span class="has-error text-danger pull-right txt_folder_path_error"></span>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        <hr/>
+
+                    </div>
+                    <div class="col-md-12">
+                        <!-- <div class="col-md-12"> -->
+                            <div class="form-group pull-right">
+                                <button type="button" class="btn btn-group btn-sm btn-primary" id="btn-test-connection">Test Connection</button>
+                                <button type="submit" class="btn btn-group btn-sm btn-primary" id="btn-save">Save</button>
+                                <button type="button" class="btn  btn-reset">Cancel</button>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Notification -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer footer-button"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+<!-- <script src="/static/js/select2.min.js"></script> -->
+<script src="/static/etl/js/bootstrap-datepicker.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+<!-- <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+ -->
+ 
+<script src="/static/etl/js/select2.new.min.js"></script>
+<script type="text/javascript">
+    
+
+  
+
+    $(document).ready(function () {
+
+        $('.btn-reset').on('click',function(){
+            $('#frmConfig')[0].reset();
+            $(".select").val('').trigger('change')
+            // $(".select").val($(".select option:first").val()).trigger('change');
+        })
+        
+
+        $('#btn-test-connection').on('click',function(){
+            $('#btn-test-connection').html('<i class="fa fa-spinner fa-spin"></i> Loading')
+            $('#btn-test-connection').attr('disabled',true)
+            var formData = new FormData();
+            formData.append("txt_host", $('#txt_host').val());
+            formData.append("txt_port", $('#txt_port').val());
+            formData.append("txt_username", $('#txt_username').val());
+            formData.append("txt_password", $('#txt_password').val());
+            formData.append("txt_folder_path", $('#txt_folder_path').val());
+            $.ajax({
+                type: "POST",
+                url: "/drone/drone-details/test_connection/",
+                dataType: 'json',
+                processData: false, contentType: false ,
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: formData,//JSON.stringify(formdata),
+                success: function (data) {
+                    $('.has-error').html('');
+                    if (data.success  == true ) {
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Success');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        $("#infoModal").modal();
+                        // $("#infoModal").modal().on('hidden.bs.modal', function () {
+                        //     location.reload();
+                        // });
+                    } 
+                    else{
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Warning');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        
+                        $("#infoModal").modal();
+                    }
+
+                    $('#btn-test-connection').html('Test Connection')
+                    $('#btn-test-connection').attr('disabled',false)
+                    
+                },
+                error: function (e) {
+                    $('#roleModal').modal('hide');
+                    $("#infoModal").find('.modal-title').html('Error');
+                    $("#infoModal").find('.modal-body').html(`${e.responseJSON.msg}`);
+                    $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                    $("#infoModal").modal();
+                }
+            });
+        })
+       
+        $("#frmConfig").submit(function (event) {
+
+            $('#btn-save').html('<i class="fa fa-spinner fa-spin"></i> Loading')
+            $('#btn-save').attr('disabled',true)
+            event.preventDefault();
+            
+            var form = $('#frmConfig')[0];
+                var formData = new FormData(form);
+                console.log('formData',formData)
+                // formData.append("img_hotspot", JSON.stringify(items));
+                // formData.append("schema_data", JSON.stringify(schema_data));
+                
+                // formData.append("battery_cat", [...new Set(sb_battery)]);
+                // formData.append("sensors_cat", [...new Set(sb_sensor)]);
+                // formData.append("camera_cat", [...new Set(sb_camera)]);
+                // formData.append("rc_cat", [...new Set(sb_rc)]);
+                // formData.append("fc_cat", [...new Set(sb_fc)]);
+                // formData.append("qgc_cat", [...new Set(sb_qgc)]);
+                // formData.append("frame_cat", [...new Set(sb_frame)]);
+                
+            console.log(formData)
+            $.ajax({
+                type: "POST",
+                url: "/drone/drone-details/save_config/",
+                dataType: 'json',
+                processData: false, contentType: false ,
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: formData,//JSON.stringify(formdata),
+                success: function (data) {
+                    $('.has-error').html('');
+                    if (data.success  == true ) {
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Success');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        $("#infoModal").modal().on('hidden.bs.modal', function () {
+                            location.reload();
+                        });
+                    } 
+                    else if(data.success =='exist'){
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Warning');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        
+                        $("#infoModal").modal();
+                    }
+                    else {
+                        $.each(data.errors, function (key, value) {
+                            $(`.${key}_error`).html(`${value[0]}`);
+                        });
+                    }
+                    $('#btn-save').html('Save')
+                    $('#btn-save').attr('disabled',false)
+                },
+                error: function (e) {
+                    $('#roleModal').modal('hide');
+                    $("#infoModal").find('.modal-title').html('Error');
+                    $("#infoModal").find('.modal-body').html(`${e.responseJSON.msg}`);
+                    $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                    $("#infoModal").modal();
+                    $('#btn-save').html('Save')
+                    $('#btn-save').attr('disabled',false)
+                }
+            });
+        });
+
+        // Edit ERP
+        // $(".btnEdit").click(function () {
+        //     $('#roleModal').find('.has-error').html('');
+        //     $('#roleModal').find('.modal-title').html('Edit Role');
+        //     var id = $(this).attr('rel');
+        //     $('#roleModal').find('#roleid').val(id);
+        //     $('#roleModal').find('#role').val($(this).closest('tr').find("td:eq(1)").text());
+        //     $('#roleModal').find('#description').val($(this).closest('tr').find("td:eq(2)").text());
+        //     $('#group').val(JSON.parse($(this).closest('tr').find("td:eq(3)").text())).trigger('change');
+        //     $("#roleModal").modal({
+        //         keyboard: false
+        //     });
+        // });
+
+        // $(".btnDel").click(function (e) {
+        //     e.preventDefault();
+        //     var link = $(this).attr('href');
+        //     var id = $(this).data('id');
+        //     $('#confirm').modal({
+        //         backdrop: 'static',
+        //         keyboard: false
+        //     }).on('click', '#delete', function (e) {
+        //         $.ajax({
+        //             headers: { "X-CSRFToken": '{{csrf_token}}' },
+        //             type: "DELETE",
+        //             dataType: 'json',
+        //             url: `${link}/?id=${id}`,
+        //             data: {},
+        //             beforeSend: function () { },
+        //             success: function (data) {
+        //                 if (data.success) {
+        //                     window.location.href = data.url;
+        //                 } else {
+        //                     $("#infoModal").find('.modal-title').html('Error');
+        //                     $("#infoModal").find('.modal-body').html(`${data.msg}`);
+        //                     $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+        //                     $("#infoModal").modal();
+        //                 }
+        //             }, error: function (error) {
+        //                 $("#infoModal").find('.modal-title').html('Error');
+        //                 $("#infoModal").find('.modal-body').html(`${error.responseJSON.msg}`);
+        //                 $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+        //                 $("#infoModal").modal();
+        //             }
+        //         })
+        //     }).on('hidden.bs.modal', function (e) {
+        //         $(e.currentTarget).unbind();
+        //     });
+        // });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+<app-header></app-header>
+<div class="container" style=" background-color: #F6F6F6;">
+    <!-- <div class="row"> -->
+    <form action="">
+        <div>
+            <header class="panel-heading">
+            <label>Users</label>    
+            <a [routerLink]="" (click)="SubUserList()"  class="btn btn-sm btn-default pull-right" style="padding:0; ">
+                <img src="../../assets/img/list.svg" style = "height:28px;" class= "add-icon">
+            </a>
+        </header>
+        </div>
+        <div class = "project-add">
+            <div class="panel-body">
+
+                <div class="main">
+                    <div class="sub-heading">
+                        <label>
+                            Add User
+                            
+                        </label>
+                    </div>
+                        <div class="row input-container" style="margin-top: 32px;">
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">First Name</label>
+                                <input type="text" maxlength="80" name="firstname" id="firstname" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="First name" [(ngModel)]="firstname">
+                                <span class="has-error error pull-right firstname_error" *ngIf='is_first_name'>This field is required.</span>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Last Name</label>
+                                <input type="text" maxlength="80" name="lastname" id="lastname" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="Last name"  [(ngModel)]="lastname">
+                                <span class="has-error error pull-right lastname_error" *ngIf='is_last_name'>This field is required.</span>
+                            </div>
+                         </div>
+                        <div class="row input-container">
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Email</label>
+                                <input type="email" name="email" id="email" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="name@gmail.com"  [(ngModel)]="email">
+                                <!-- <span class="has-error error pull-right email_error" *ngIf='is_email'>{{email_error}}</span> -->
+                                <span class="has-error error pull-right email_error" *ngIf='email_error'>{{email_error}}</span>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="label-ip required">Phone</label>
+                                <input type="text" name="phone" id="phone" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="0000000000"  [(ngModel)]="phone">
+                                <span class="has-error error pull-right phone_error" *ngIf='phone_error'>{{phone_error}}</span>
+                            </div>                           
+                        </div>
+
+
+                        <div style="display: flex;" >
+                            <div class="form-group">
+                                <!-- <label class="checkbox-inline" style="display: flex;">
+                                    <input (change)="check($event)" type="checkbox" name="pilot" id="pilot" class=""   [(ngModel)]="pilot">                                  
+                                    <span class="mark"></span>
+                                    <span class=" label-ip" style="width: 150px;">Set as Pilot</span>
+                                </label> -->
+                                <label class="container1">
+                                    <input (change)="check($event)" type="checkbox" name="pilot" id="pilot" class=""   [(ngModel)]="pilot">                                  
+                                    <span class="mark"></span>Set as Pilot
+                                  </label>
+                                </div>
+                                <div class="form-group">                             
+                                </div>
+                        </div>
+                        <div class="input-container" *ngIf='pilot==true'>                          
+                                <div class="form-group">
+                                <div class="row form-group" >
+                                    <div class="col-sm-3 form-group">
+                                    <label class="label-ip">Pilot License ID</label>
+                                    <input type="text" maxlength="80" name="pilot_license" id="pilot_license" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="ID"  [(ngModel)]="pilot_license">
+                                    </div>
+                                    <div class="col-sm-3 form-group">
+                                    <label class="label-ip">Description</label>
+                                    <input type="text" name="description" id="description" class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="Write here"  [(ngModel)]="description">
+                                    </div>
+                                    <!-- <div class="col-sm-3 form-group" style="display: flex;flex-direction: column;">
+                                        <label class="label-ip">License File</label>
+                                        <input type="file" accept="application/pdf" class="" id="validatedCustomFile" (change)="onChange($event)">
+                                        
+                                    </div> -->
+                                    <div class="col-sm-6 form-group cl-file">
+                                    <mat-form-field>
+                                    <div>
+                                    <mat-toolbar>
+                                        <!-- Display files names -->
+                                        <input matInput [(ngModel)]="fileAttr" readonly name="name"  class="file-label" placeholder="Choose File"/>
+                                        <!-- Browse Button -->
+                                        <button class="file-btn" mat-flat-button color="primary" style="border: 0;">Browse File</button>
+                                      
+                                      <!-- Fetch selected filed on change -->
+                                    </mat-toolbar>
+                                      <input
+                                        
+                                        #fileInput
+                                        title=" "
+                                        type="file" accept="application/pdf" 
+                                        class="" 
+                                        id="validatedCustomFile" (change)="onChange($event)"
+                                        name="validatedCustomFile"
+                                        
+                                      />
+                                    
+                                </div>
+                            </mat-form-field>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- {{profile_schema|json}} -->
+                        <div style="display: flex;" >
+                            <div class="form-group">
+                                <!-- <label class="checkbox-inline" style="display: flex;">
+                                    <input (change)="check_fields($event)" type="checkbox" name="add_fields" id="add_fields" class=""   [(ngModel)]="add_fields">                                  
+                                    <span class=" label-ip" style="width: 150px;">Additional fields</span>
+                                </label> -->
+
+                                <label class="container1">
+                                    <input (change)="check_fields($event)" type="checkbox" name="add_fields" id="add_fields" class=""   [(ngModel)]="add_fields">                                  
+                                    <span class="mark"></span>Additional fields
+                                  </label>
+
+                                </div>
+                                <div class="form-group">                             
+                                </div>
+                        </div>
+                        <div class="row input-container dv-dynamic"  *ngIf='add_fields==true'>
+                            <div class="col-sm-6 form-group" *ngFor="let item of profile_schema | keyvalue">
+                                
+                                <label class="label-ip">{{$any(item.value).label}}</label>
+                                <input *ngIf="$any(item.value).input_type=='text'" type="text"  class="form-control mb-16 cust-input" style = "font-size: .8750em;" placeholder="{{$any(item.value).label}}" [(ngModel)]="profile_schema_model[$any(item.key)]" >
+                                <!-- <md-input #input  
+                            type="{{cell.type}}"
+                            value="{{getInputValue(cell) || '--'}}"
+                            [placeholder]="cell.label"></md-input> -->
+                                <!-- <span class="has-error error pull-right email_error" *ngIf='is_email'>{{email_error}}</span> -->
+                                <!-- <span class="has-error error pull-right email_error" *ngIf='email_error'>{{email_error}}</span> -->
+                            </div>
+                                                        
+                        </div>
+                </div>
+                <!-- {{error}} -->
+                <div class="alertBox" *ngIf='error'>
+                    <span class="error">{{error}}</span>
+                </div>
+                <div class="alertBox" *ngIf='file_type_error'>
+                    <span class="error">Please select pdf format file</span>
+                </div>
+                <div class="alertBox" *ngIf='success=="true"'>
+                    <span class="success">Saved Successfully</span>
+                </div>
+                <div class ="d-flex align-items-center justify-content-end gap-3;">
+                    <button *ngIf='usersave_permission' type = "button" class="btn btn-info cust-btn-primary" (click)="AddUser()">Save</button>
+                    <button type = "button" class="btn btn-info cust-btn-secondary" (click)="OnCancel()">Cancel</button>
+                </div>
+            </div>
+          </div>
+        
+        
+    </form>
+<!-- </div> -->
+</div>
+
+    <app-footer></app-footer>
+    <!-- <script type="text/javascript">
+        $(document).ready(function () {
+            if (typeof error != "undefined") {
+                $(".alertBox span").text(error);
+                $(".alertBox").show();
+            }
+            else {
+                $(".alertBox").hide();
+            }
+        });
+        </script> -->

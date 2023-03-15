@@ -1,0 +1,34 @@
+.main{
+    display: flex;
+    gap:10px;
+}
+.input-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+}
+.btn-div{
+    display: flex;
+    width: 98%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0 10px;
+    gap: 10%;
+}
+.error{
+    color: red;
+}
+.form-control{
+    height: 29px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 0 10px;
+}

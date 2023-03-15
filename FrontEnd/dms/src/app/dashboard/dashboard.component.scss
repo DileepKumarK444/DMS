@@ -1,0 +1,207 @@
+body{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Work Sans';
+    // height: 100vh;
+    overflow-x: hidden;
+    width: 100vw;
+    background: #F6F6F6 !important;
+}
+li{
+    float:left;
+    width:200px;
+    height:200px;
+    display:block;
+   }
+.tile{
+    display: flex;
+    align-items: center;
+    // padding-left :26px;
+    // padding-right :26px;
+    padding: 0 26px;
+    cursor: pointer;
+    flex-wrap: wrap;
+
+}
+.dronehead{
+    font-size: 18px;
+    display: inline-block;
+    color: #4B4A50;
+    margin-bottom: 13px;
+    // padding: 24px;
+}
+.dronemodel{
+    // width:344px;
+    // height:251px;
+    display:block;
+}
+.drone-tile{
+    height: 25px;
+    padding-right: 16px;
+  }
+.grid-container {
+    display: flex;
+    // grid-template-columns: auto auto auto;
+    // grid-template-rows: auto auto;
+    // grid-gap: 24px;
+    flex-direction: column;
+    background-color: #FFFFFF !important;
+    margin: 12px;
+    padding: 16px;
+    // padding: 10px;
+    // border-color: black ;
+    // grid-gap: 24px;
+    transition: transform .2s;
+    border: solid 1px #E3E3E3;
+    border-radius: 4px;
+}
+  
+.grid-container:hover, .grid-container:active, .grid-container:focus, .grid-container:focus-visible {
+    // display: flex;
+    // flex-direction: column;
+    // background-color: #FFFFFF !important;
+    // margin: 15px;
+    // padding: 20px;
+    border: solid 1px #E3E3E3;
+    // border-color: #F97738 !important;
+    box-shadow: 1px 1px 10px 1px #E3E3E3  !important;
+    transform: scale(1.02);
+}
+.grid-container:focus{
+    border: solid 2px #000;
+    box-shadow: 1px 1px 10px 1px #E3E3E3  !important;
+    
+}
+// .grid-container-body-viewport .grid-container-row-hover .grid-container-column-hover {
+//     border: solid 2px #000;
+// }
+// .tile:hover, .tile:active, .tile:focus, .tile:focus-visible {
+//     // display: flex;
+//     // flex-direction: column;
+//     // background-color: #FFFFFF !important;
+//     // margin: 15px;
+//     // padding: 20px;
+//     border-color: #F97738;
+// }
+
+.grid-container .col-md-4{
+      padding: 0; 
+}
+  
+//   .grid-container > div {
+//     background-color: rgba(255, 255, 255, 0.8);
+//     // text-align: center;
+//     // padding: 20px;
+//     font-size: 20px;
+//   }
+.panel-heading{
+      font-size :26px; 
+      padding: 12px 40px 16px 40px;
+      color: #4B4A50;
+      font-weight: 600 !important;
+
+}
+.drone-tile-img{
+      display: block;
+      margin: 0 auto;
+
+}
+.total{
+    display:flex;
+    text-align: center;
+    align-items: center;
+    font-size: 18px;
+    // padding: 16px;
+   
+}
+.bottompanel{
+    display:flex;
+    margin-top: 16px;
+}
+.tinyfont{
+      font-size: 12px;
+      color: #6F6E73;
+      font-weight: 400;
+      padding-left:4px;
+}
+.bigfont{
+    font-size: 14px;
+    color: #6F6E73;
+    font-weight: 600;
+
+}
+.tiletitle{
+    display: flex;
+    justify-content: space-between;
+
+}
+.gc{
+    background: #FDE8DD;
+    color :#F97738;
+    font-weight: normal;
+}
+.drone_status_active{
+    width: 8px;
+    height: 8px;
+    background: #86DF40;
+    display: inline-block;
+    margin-left :8px;
+    border-radius: 100%;
+}
+
+.drone_status_inactive{
+    width: 8px;
+    height: 8px;
+    background: #ECECEC;
+    display: inline-block;
+    margin-left :8px;
+    border-radius: 100%;
+}
+
+.item {
+	float:left;
+	display:inline;
+	// padding-right:10px;
+}
+
+
+.item:after {
+    content: "";
+    position: relative;
+    display: block;
+    border-top: 36px solid #e1e1e1;
+    width: 1px;
+    margin: -39px 0px 0px -15px;
+
+}
+
+.item:first-child:after {
+  display:none;
+
+}
+.imageicon{
+    // padding-right: 4px;
+}
+
+.normal{
+    color: #FFFFFF;
+    background-color: #BFBFBF;
+    // border-color: #bee5eb
+}
+
+.medium{
+    // background: orange;
+    color: #F75506;
+    background-color: #FDE8DD;
+    // border-color: #ffeeba
+}
+
+.critical{
+    // background: red;
+    color: #FFFFFF;
+    background-color: #F75506;
+    // border-color: #f5c6cb;
+
+
+}

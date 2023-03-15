@@ -1,0 +1,172 @@
+
+<app-header></app-header>
+<div class="container"  style=" background-color: #F6F6F6;">
+    <!-- <div class="row"> -->
+    <form action="">
+    <div>
+        <header class="panel-heading">
+            <label>Project</label>
+            <a *ngIf='projectadd_permission' [routerLink]="" (click)="ProjectAdd()"  class="btn btn-sm btn-default pull-right " style="padding:0; ">
+                <img src="../../assets/img/add.svg" class= "add-icon" style = "height:28px;">
+            </a>
+        </header>
+    </div>
+    
+    
+        <!-- <div class = "project-list">
+        <table class="table">
+        <thead>
+            <tr>
+                <th  style="padding: 0;width: 16px;border: 0 !important;"  ></th>
+                <th class="userlist-head">#</th>
+                <th class="userlist-head">Project Name</th>
+                <th class="userlist-head">Mission Commander</th>
+                <th class="userlist-head">Start Date</th>
+                <th class="userlist-head">End Date</th>
+                <th class="userlist-head">Action</th>
+                <th  style="padding: 0;width: 16px;border: 0 !important;" ></th>
+
+            <tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let project of projectlist; let id = index">
+                
+                <td style="padding: 0;width: 16px;border: 0 !important;"></td>
+                <td class="userlist-body">{{id + 1}}</td>
+                <td class="userlist-body">{{project.project_name}}</td>
+                <td class="userlist-body">{{project.mission_commander_id__first_name}}</td>
+                <td class="userlist-body">{{project.start_date}}</td>
+                <td class="userlist-body">{{project.end_date}}</td>
+                <td class="userlist-body">             
+                    <a [routerLink]="" (click)="EditProject(project.id)" class="btn btn-sm btn-default" style="padding-left:0;">
+                        <i class = "fa fa-pencil"></i>    
+                    </a>     
+                    <a [routerLink]="" (click)="openPopup(project.id)" class="btn btn-sm btn-default">
+                        <i class = "fa fa-trash"></i>    
+                    </a>
+                   
+                </td>
+                <td style="padding: 0;width: 16px;border: 0 !important;" ></td>
+            <tr>
+              <tr *ngIf="projectlist.length==0">
+                <td style="padding: 0;width: 16px;border: 0 !important;"></td>
+                <td colspan="6" style="text-align: center;font-size:14px;font-weight: 500;color: #6F6E73;">No Data</td>
+                <td style="padding: 0;width: 16px;border: 0 !important;"></td>
+               </tr>
+        </tbody>
+       </table>
+       </div>
+-->
+       <div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document" style="width: 370px;top: 15%;">
+    <div class="modal-content" style="border: 0;box-shadow: 0px 0px 12px 0px #ddd;width: 370px;">
+      <div class="modal-header" style="border: 0 !important;padding-bottom: 0;">
+        <h4 class="modal-title" style="font-size: 20px;font-weight: 500;">Delete a Project?</h4>
+      </div>
+      <div class="modal-body" style="border: 0 !important;">
+        <p style="margin-bottom: 0px;font-size: 14px">Are you sure you want to delete this item?</p>
+        <p style="font-size: 14px">You can't undo this action.</p>
+  
+      </div>
+      <div class="modal-footer" style="background: #F6F6F6;border: 0;">
+        <button type="button" class="btn btn-info" 
+        (click)="closePopup()" style="background: #FDE8DD;border-color: #FDE8DD;color: #F97738;font-size: 18px;">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" 
+        (click)="DeleteProject()" style="background: #FA9260;border-color: #FA9260;color: #FFFFFF;font-size: 18px">
+        Delete
+        </button>
+        
+      </div>
+    </div>
+  </div>
+</div> 
+
+    
+    </form>
+<!-- </div> -->
+
+
+
+
+<div class = "search-box" style="/* width: 100%; */  padding: 0;">
+  <mat-form-field appearance="standard" style="width: 100%;padding: 0;">
+    <!-- <mat-label style="pa">Filter</mat-label> -->
+    <input class="form-control mb-16 cust-input" style="height: 24px; position: relative; border: 1px solid #C4C4C5; padding: 6px 3px 6px 32px; background: #fff; line-height: 13px;width: 98%;" matInput (keyup)="applyFilter($event)" placeholder="Search..." #input>
+    <i class='fa fa-search' style="position: absolute; left: 11px; top: 17px; font-size: 16px; height: 40px; color: #6F6E73; "></i>
+  </mat-form-field>
+  </div>
+  <div class="mat-elevation-z8 sub-user-list"  style="box-shadow: none;margin: 0px 24px 24px 24px;">
+    <table mat-table [dataSource]="dataSource"  matSort style="width:100%">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef  class="userlist-head"> # </th>
+        <td mat-cell *matCellDef="let row; let i = index;" class="userlist-body"> {{(i+1)+(paginator.pageIndex * paginator.pageSize)}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="project_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="userlist-head"> Project Name </th>
+        <td mat-cell *matCellDef="let row" class="userlist-body"> {{row.project_name}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="mission_commander_id__first_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="userlist-head"> Mission Commander </th>
+        <td mat-cell *matCellDef="let row" class="userlist-body"> {{row.mission_commander_id__first_name}} </td>
+      </ng-container>
+  
+      <!-- Fruit Column -->
+      <ng-container matColumnDef="start_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="userlist-head"> Start Date </th>
+        <td mat-cell *matCellDef="let row" class="userlist-body"> {{row.start_date}} </td>
+      </ng-container>
+  
+      
+  
+      <ng-container matColumnDef="end_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="userlist-head"> End Date </th>
+        <td mat-cell *matCellDef="let row" class="userlist-body"> {{row.end_date}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef  class="userlist-head"> Action </th>
+        <td mat-cell *matCellDef="let row" class="userlist-body"> 
+          <a *ngIf='projectedit_permission' [routerLink]="" (click)="EditProject(row.id)" class="btn btn-sm btn-default" style="padding-left:0;">
+            <i class = "fa fa-pencil"></i>    
+        </a>
+        <a *ngIf='projectdelete_permission' [routerLink]="" (click)="openPopup(row.id)" class="btn btn-sm btn-default">
+            <i class = "fa fa-trash"></i>    
+        </a>  
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" style="text-align: center;"  colspan="6">No data </td>
+      </tr>
+    </table>
+  
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+    <mat-paginator  [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="pageSize"
+                   showFirstLastButtons 
+                   
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  
+  </div>
+
+
+
+</div>
+
+<app-footer></app-footer>

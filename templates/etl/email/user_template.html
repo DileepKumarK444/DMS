@@ -1,0 +1,174 @@
+{% load static%}
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Email</title>
+    
+    <style>
+        img {
+            border: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100%;
+        }
+
+        body {
+            background-color: #f6f6f6;
+            font-family: 'Work Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            /*font-size: 14px;*/
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        table {
+            font-family: 'Work Sans', sans-serif;
+            border-collapse: separate;
+            
+            width: 100%;
+        }
+
+       
+        .container {
+            display: block;
+            margin: 0 auto !important;
+            /* makes it centered */
+            max-width: 580px;
+            padding: 10px;
+            width: 580px;
+        }
+
+        /* This should also be a block element, so that it will fill 100% of the .container */
+        .content {
+            box-sizing: border-box;
+            display: block;
+            margin: 0 auto;
+            max-width: 580px;
+            padding: 10px;
+        }
+
+        /* -------------------------------------
+          HEADER, FOOTER, MAIN
+      ------------------------------------- */
+        .main {
+            background: #ffffff;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .wrapper {
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .content-block {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+       
+        a {
+            color: #005261;
+            text-decoration: underline;
+        }
+
+        
+        p{
+            color: #4B4A50;
+        }
+    </style>
+</head>
+
+<body style="background-color: #ddd; margin: 0 !important; padding: 0 !important;">
+    <!-- HIDDEN PREHEADER TEXT -->
+    
+    
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!-- LOGO -->
+        <tr>
+            <!-- <td> -->
+                <td  align="center" style="padding: 0px 10px 0px 10px; ">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 640px;background: #fff;margin: 24px !important;">
+                    
+                    
+                    <tr>
+                        <td style="height: 80px;padding-left: 32px;">
+                            <img src="{{BASE_URL}}/static/etl/img/logo_email.png" style="margin-right:24px"> 
+                        </td>    
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding: 12px 32px;">
+                        <p style="font-family: 'Work Sans', sans-serif;font-size: 14px">Hi <span ><b>{{name}}</b>,</span></p>
+                        
+                        </td>
+                    </tr>
+
+                    <tr>
+                        
+                        <td style="padding-bottom: 64px;">
+                            <div style="padding:0 32px;border-radius: 8px">
+                                
+                                <p style="font-family: 'Work Sans', sans-serif;font-size: 14px;line-height:1.6">We're excited to have you get started. First, you need to confirm your account by clicking <a href="{{end_url}}" target="_blank">here</a> or paste the following link into your browser: 
+                                </p>
+                                <p style="font-family: 'Work Sans', sans-serif;font-size: 14px;line-height:1.6">{{end_url}}</p>
+
+                                <p style="font-family: 'Work Sans', sans-serif;font-size: 14px ;line-height:1.6">{% if password %}
+                                    <p style="margin-top: 10px;">Your AVM login credentials are given below.</p>
+                                    <p style="margin-top: 5px;">Username : <span style="color: royalblue;">{{first_name}}</span></p>
+                                    <p style="margin: 0;">Password : <span style="color: royalblue;">{{password}}</span></p>
+                                {% endif %}</p>
+                                
+                                <p style="font-family: 'Work Sans', sans-serif;font-size: 14px ;line-height:1.6">If you have any questions, please contact us at <a href="goc@actionfi.com">goc@actionfi.com</a>. </p>
+                    
+                                <p>&nbsp;</p>
+                                
+
+                            </div>
+
+                        </td>
+                        
+                    </tr>
+
+                    <tr>
+                        <td >
+                            <span style="margin-left: 32px;margin-right: 32px;">
+                            <span >
+                                <!-- <div><img src="{% static 'etl/img/fb.png' %}"/> </div>
+                                <div><img src="{% static 'etl/img/in.png' %}"/> </div>
+                                <div><img src="{% static 'etl/img/insta.png' %}"/> </div> -->
+                                <a href="https://www.facebook.com/axldronepvtltd/" target="_blank"><img src="{{BASE_URL}}/static/etl/img/fb_new.png" style="margin-right:24px"> </a>
+                                <a href="https://in.linkedin.com/company/axldrone?trk=similar-pages" target="_blank"><img src="{{BASE_URL}}/static/etl/img/in_new.png" style="margin-right:24px"/> </a>
+                                <a href="https://www.instagram.com/p/CenceVkM1da/?igshid=YmMyMTA2M2Y=" target="_blank"><img src="{{BASE_URL}}/static/etl/img/insta_new.png" style="margin-right:24px"/> </a>
+                                
+                            </span>
+                            <span >
+                                <span style="color: #4B4A50; font-size: 8px;float: right;margin-right: 32px;margin-top: 10px;">© {% now "Y" %} AXL Drone All rights reserved.</span>
+                            </span>
+                        </span>
+                        <br/>
+                        <br/>
+                        <br/>
+                        </td>
+                    </tr>
+
+
+
+            </table>
+            </td>
+        </tr>
+
+
+    </table>
+</body>
+
+
+</html>

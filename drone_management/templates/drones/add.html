@@ -1,0 +1,1220 @@
+{% extends "etl/base.html" %}
+{% load static %}
+{% block additional_styles %}
+<!-- <link href="/static/css/form.css" rel="stylesheet" /> -->
+<!-- <link href="/static/css/select2.min.css" rel="stylesheet" /> -->
+<link href="/static/etl/css/bootstrap-datepicker.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
+<link href="/static/etl/css/select2.new.min.css" rel="stylesheet" />
+<style>
+    .margin-bottom {
+        margin-bottom: 4px;
+    }
+    /* .bootstrap-tagsinput {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    display: inline-block;
+    padding: 2px 2px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    max-width: 100%;
+    line-height: 23px;
+    cursor: text;
+    min-height: 8px;
+    width: 100%;
+}
+.label {
+    display: inline;
+    padding: 0.2em 0.6em 0.3em;
+    font-size: 75%;
+    font-weight: 700;
+    
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+} */
+.output {
+    width: 100%;
+    height: 100%;
+    /* padding: 0 20px; */
+    /* height: 150px; */
+    /* object-fit: cover; */
+    border: 1px solid #ddd;
+}
+video{
+    width: 300px;
+    border: 1px solid #ddd;
+  /* padding: 0 20px; */
+}
+
+/* input[type="file"] {
+    padding: 0 20px;
+} */
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #e2e2e4 1px;
+    outline: 0;
+}
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #e2e2e4;
+    border-radius: 4px;
+    cursor: text;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    position: relative;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #e2e2e4;
+    border-radius: 4px;
+}
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #e2e2e4;
+    border-radius: 4px;
+    cursor: text;
+    padding-bottom: 0;
+    padding-right: 5px;
+    position: relative;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    cursor: default;
+    padding-left: 2px;
+    padding-right: 5px;
+    color: #303030;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 0;
+    padding-left: 20px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+.select2-container--default .select2-search--inline .select2-search__field{
+    margin-bottom: 6px;
+}
+.select2-container .select2-selection--multiple {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    min-height: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    background-color: transparent;
+    border: none;
+    border-right: 1px solid #ddd;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: #303030;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* border-right: 1px solid #ddd; */
+}
+
+.select2-results__option.select2-results__option--selectable {
+    color: #333;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover, .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+    background-color: #e8e8e8;
+    color: #333;
+    outline: none;
+    border-right: 1px solid #ddd;
+}
+/* select2 select2-container select2-container--default select2-container--below */
+span.select2.select2-container.select2-container--default {
+    width: 100% !important;
+}
+.form-group {
+    /* margin-bottom: 5px; */
+    margin: 0px 12px 5px 12px;
+}
+#view_img, #view_mdi_img{
+    cursor: pointer;
+}
+@media (max-width: 992px){
+.col-md-12 {
+    width: 100%;
+    display: grid;grid-template-columns: repeat(1,1fr) !important;gap: 4px;
+}
+}
+
+.circle {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #F97738;
+  border: 2px solid black;
+  position: absolute;
+}
+
+#test {
+  line-height: 0;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: gray;
+  display: inline-block;
+  
+  
+  
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #ee6e3b;
+    color: white;
+}
+
+#test img {
+
+    cursor: pointer;
+  }
+.dot {
+  position: absolute;
+  cursor: pointer;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #F97738;
+    border: 1px solid #F97738;
+    box-shadow: 0 0 0 7px #fdd2bd;
+  transition: box-shadow .214s ease-in-out, transform .214s ease-in-out, background .214s ease-in-out;
+  /* padding: 11px 0 0 8px; */
+  color: #fff;
+  margin-left: 6px;
+    margin-top: 4px;
+
+  /* &.ui-draggable-dragging {
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, .5);
+    transform: scale3d(1.2, 1.2, 1.2);
+    background: rgba(white, .7);
+  } */
+}
+
+/* .dot {
+	animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+  }
+  @keyframes blinker {  
+	from { opacity: 1; }
+	to { opacity: 0; }
+  } */
+</style>
+{% endblock %}
+
+{% block content %}
+{% load check_permission %}
+
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            Add Drone
+        </header>
+        <div class="panel-body">
+            <div class="row variant-container form-container">
+                <form  method="POST" enctype="multipart/form-data" id="frmDrone" role="form">
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <div class="row">
+                            
+                            <div class="col-md-12" style="display: grid;grid-template-columns: repeat(2,1fr);gap: 4px;">
+                                <div class="form-group ">
+                                    <label class="col-form-label" for="txt_modal">Model *</label>
+                                    <!--  <div class="col-sm-8"> --> 
+                                        <input type="text" id="txt_modal" name="txt_modal" class="form-control" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_modal_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_modal_no">Model Number *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <input type="text" id="txt_modal_no" name="txt_modal_no" class="form-control" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_modal_no_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_serial_no">Serial Number *</label>
+                                    <!-- <div class="col-xs-8"> -->
+                                        <input type="text" id="txt_serial_no" name="txt_serial_no" class="form-control" readonly autocomplete="off" value="{{prefix}}-{{serial_no}}">
+                                        <span class="has-error text-danger pull-right txt_serial_no_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_uin">UIN *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <input type="text" id="txt_uin" name="txt_uin" class="form-control" autocomplete="off" value="">
+                                        <span class="has-error text-danger pull-right txt_uin_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_drone_type">Purpose of Drone *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <select id="sb_drone_purpose" name="sb_drone_purpose"  class="form-control select">
+                                            <option value="">Select Drone Purpose</option>
+                                            {% for purpose in dronePurposes %}
+                                                <option value="{{purpose.id}}">{{purpose.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_drone_purpose_error"></span>
+                                        <!-- <input type="text"  id="txt_drone-type"  name="txt_drone-type" class="form-control"  autocomplete="off" value=""> -->
+                                        
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_drone_type">Type of Drone *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <select id="sb_drone_type" name="sb_drone_type" class="form-control select">
+                                            <option value="">Select Drone Type</option>
+                                            
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_drone_type_error"></span>
+                                        <!-- <input type="text"  id="txt_drone-type"  name="txt_drone-type" class="form-control"  autocomplete="off" value=""> -->
+                                        
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="txt_video_link">Video Link</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <input type="text"  id="txt_video_link"  name="txt_video_link" class="form-control"  autocomplete="off" value="">
+                                        
+                                    <!-- </div> -->
+                                </div>
+                                
+                                <div class="form-group ">
+                                    <label class="col-form-label" for="ta_features">Features </label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <textarea name="ta_features" id="ta_features" rows="2" class="form-control"></textarea>
+                                        
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label " for="battery">Status </label>
+                                    <!-- <div class="col-xs-8"> -->
+                                        
+                                        <!-- <div class="checkbox"> -->
+                                            <label class="checkbox-lbl "><input type="checkbox" checked value="True" name="status" id="status"><span>Active</span></label>
+                                        <!-- </div> -->
+                                    <!-- </div> -->
+                                </div>
+                                
+                                
+                                <!-- <div class="form-group ">
+                                    <label class="form-label" for="registrationdate">Registration Date </label>
+                                    <div class="col-xs-8 ">
+                                        <div class="input-group date register_date" id="register_date">
+                                            <input type="text" id="register_date" class="form-control" name="register_date" autocomplete="off" value="">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                        </div>
+                                        
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-12" style="display: grid;grid-template-columns: repeat(2,1fr);gap: 4px;">
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_battery">Batteries *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_battery"  name="txt_battery" class="form-control"  autocomplete="off" value=""> -->
+                                        <!-- <input type="text" value="html,input,tag" class="form-control"  data-role="tagsinput"></input> -->
+                                        <select class="multiple-select" name="sb_battery" id="sb_battery" multiple="multiple">
+                                            {% for battery in batteries %}
+                                            <option data-cat="{{battery.category}}" value="{{battery.id}}">{{battery.category__model}} - {{battery.serial_number}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_battery_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_rc">RC *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_rc"  name="txt_rc" class="form-control"  autocomplete="off" value=""> -->
+                                        <select class="form-control select" name="sb_rc" id="sb_rc"   >
+                                            <option value="">Select Remote Control</option>
+                                            {% for remote in remotes %}
+                                                <option data-cat="{{remote.category}}" value="{{remote.id}}">{{remote.category__model}} - {{remote.serial_number}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_rc_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_sensor">Sensors *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_sensor"  name="txt_sensor" class="form-control"  autocomplete="off" value=""> -->
+                                        <select class="multiple-select" name="sb_sensor" id="sb_sensor"  multiple="multiple">
+                                            {% for sensor in sensors %}
+                                            <option data-cat="{{sensor.category}}" value="{{sensor.id}}">{{sensor.category__model}} - {{sensor.serial_number}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_sensor_error"></span>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_sensor">Cameras *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_sensor"  name="txt_sensor" class="form-control"  autocomplete="off" value=""> -->
+                                        <select class="multiple-select" name="sb_camera" id="sb_camera"  multiple="multiple">
+                                            {% for camera in cameras %}
+                                                <option data-cat="{{camera.category}}" value="{{camera.id}}">{{camera.category__model}} - {{camera.serial_number}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_camera_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_fc">Flight Control *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_sensor"  name="txt_sensor" class="form-control"  autocomplete="off" value=""> -->
+                                        <select class="multiple-select" name="sb_fc" id="sb_fc"  multiple="multiple">
+                                            {% for fc in fcs %}
+                                                <option data-cat="{{fc.category}}" value="{{fc.id}}">{{fc.category__model}} - {{fc.serial_number}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_fc_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_frame">Frame *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_sensor"  name="txt_sensor" class="form-control"  autocomplete="off" value=""> -->
+                                        <select class="multiple-select" name="sb_frame" id="sb_frame"  multiple="multiple">
+                                            {% for frame in frames %}
+                                                <option data-cat="{{frame.category}}" value="{{frame.id}}">{{frame.category__model}} - {{frame.serial_number}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_frame_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="form-label" for="sb_qgc">QGC *</label>
+                                    <!-- <div class="col-sm-8"> -->
+                                        <!-- <input type="text"  id="txt_sensor"  name="txt_sensor" class="form-control"  autocomplete="off" value=""> -->
+                                        <select class="multiple-select" name="sb_qgc" id="sb_qgc"  multiple="multiple">
+                                            {% for qgc in qgcs %}
+                                                <option data-cat="{{qgc.category}}" value="{{qgc.id}}">{{qgc.category__model}} - {{qgc.serial_number}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <span class="has-error text-danger pull-right sb_qgc_error"></span>
+                                    <!-- </div> -->
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-12" id="dynamic-div" style="display: grid;grid-template-columns: repeat(2,1fr);gap: 4px;">
+                                
+                            
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label" for="btn-upload" style="margin: 0px 12px 5px 12px;">Interactive Image *</label>
+                            <div class="form-group " style="display: flex; justify-content: space-between;" >
+                                
+                                <!-- <img id="output" src="{% static 'etl/img/nopreview.jpg' %}"/> -->
+                                <input type="file" id="btn-upload" accept="image/*" onchange="loadFile(event)">
+                                <a class="" name="view_img" id="view_img" >View Image</a>
+                                
+                            </div>
+                            <span class="has-error text-danger pull-right file_error"></span>
+                            <!-- <div class="form-group " style="padding: 0 20px;">
+                                <video  controls>
+                                    <source src="" id="video_here">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                                
+                                <input type="file" name="file[]" class="file_multi_video" accept="video/*">
+                            </div> -->
+                            
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <a style="cursor: pointer;" id="a-config">Config Drone Details Hotspots</a>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label" for="btn-mdi" style="margin: 0px 12px 5px 12px;">Model Dimensions Image *</label>
+                            <div class="form-group " style="display: flex; justify-content: space-between;" >
+                                
+                                <!-- <img id="output" src="{% static 'etl/img/nopreview.jpg' %}"/> -->
+                                <input type="file" id="btn-mdi" accept="image/*" onchange="loadMDI(event)">
+                                <a class="" name="view_mdi_img" id="view_mdi_img" >View Image</a>
+                                
+                            </div>
+                            <span class="has-error text-danger pull-right mdi_file_error"></span>
+                            <!-- <div class="form-group " style="padding: 0 20px;">
+                                <video  controls>
+                                    <source src="" id="video_here">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                                
+                                <input type="file" name="file[]" class="file_multi_video" accept="video/*">
+                            </div> -->
+                            
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <!-- <a style="cursor: pointer;" id="a-config">Config more info hotspots</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group pull-right">
+                                <button type="submit" class="btn btn-group btn-sm btn-primary" id="btn-save">Save</button>
+                                <button type="button" class="btn  btn-reset">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-config" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title">Drone Details Configuration</h5>
+            </div>
+            <div class="modal-body">
+                <div   style="width: 100%;height: 400px;" id="test">
+                    <img class="output" id="img_preview1" src="{% static 'etl/img/nopreview.jpg' %}"/>
+                </div>
+                
+                <table class="table tableheader" id="clientMaster">
+                    <thead>
+                        <tr class="Header" style="border: none;">
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table_row  tablecontent" >
+                            <td style="width: 20%;">
+                                <input type="text" name="txt_x" id="txt_x" class="form-control" required>
+                            </td>
+                            <td style="width: 20%;">
+                                <input type="text" name="txt_y" id="txt_y" class="form-control" required>
+                            </td>
+                            <td style="width: 35%;">
+                                <input type="text" name="txt_title" id="txt_title" class="form-control" required>
+                            </td>
+                            <td style="width: 35%;">
+                                <input type="text" name="txt_desc" id="txt_desc" class="form-control" required>
+                            </td>
+                            
+                            <td>
+                                
+                                <!-- <a ng-if="systems.length > 1" class="btn btn-xs btn-danger" title="Delete"
+                                    ng-click="delRow($index)"><span class="glyphicon glyphicon-trash"></span>
+                                </a> -->
+                                <a  class="btn btn-xs btn-primary" id="addrow"
+                                    ><span class="glyphicon glyphicon-plus"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer footer-button">
+                <!-- <button type="button" data-dismiss="modal" class="btn btn-sm">Cancel</button> -->
+                <button type="button" data-dismiss="modal" class="btn btn-primary btn-sm" id="btn-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="imgModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body" style="width: 100%;height: 400px;">
+                <img class="output"  id="img_preview" src="{% static 'etl/img/nopreview.jpg' %}"/>
+            </div>
+            <div class="modal-footer footer-button">
+                <button type="button" data-dismiss="modal" class="btn btn-sm">Cancel</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="imgMDIModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body" style="width: 100%;height: 400px;">
+                <img class="output"  id="img_mdi_preview" src="{% static 'etl/img/nopreview.jpg' %}"/>
+            </div>
+            <div class="modal-footer footer-button">
+                <button type="button" data-dismiss="modal" class="btn btn-sm">Cancel</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer footer-button"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+<!-- <script src="/static/js/select2.min.js"></script> -->
+<script src="/static/etl/js/bootstrap-datepicker.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+<!-- <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+ -->
+ 
+<script src="/static/etl/js/select2.new.min.js"></script>
+<script type="text/javascript">
+    // var group_data = JSON.parse('{{group_data|safe}}');
+
+    var loadFile = function(event) {
+    var output = document.getElementById('img_preview');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+
+    var output1 = document.getElementById('img_preview1');
+    output1.src = URL.createObjectURL(event.target.files[0]);
+    output1.onload = function() {
+      URL.revokeObjectURL(output1.src) // free memory
+    }
+  };
+
+  var loadMDI = function(event) {
+    var output = document.getElementById('img_mdi_preview');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+};
+function loadFeatures(id){
+    $.ajax({
+                type: "POST",
+                url: "/drone/drone-details/getFeatures/",
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: {id:id},
+                success: function (data) {
+                    html = ''
+                    $.each(JSON.parse(data.data[0].additional_features), function(index, element) {
+                        console.log(element)
+                        // el1 = element.toLowerCase()
+                        // _element = el1.replace(/ /g, '_');
+                        // if(element.type == 'string'){
+                        html += `
+                            <div class="form-group ">
+                                <label class="col-form-label" for="txt_wheel-base">${element.label} </label>
+                                
+                                    
+                                    <input type="text"  id="txt_${index}"  name="txt_${index}" data-field="${index}" class="form-control"  autocomplete="off" value="">
+                                    <span class="has-error text-danger pull-right txt_${index}_error"></span>
+                                    
+                                
+                            </div>
+                        `
+                        // // }
+                        // // if(element.type == 'list'){
+                        //     opt = ''
+                        //     $.each(element.allowed, function(i, e) {
+                        //         console.log(i,e)
+                        //         opt += `
+                        //         <option value="${e}">${e}</option>
+                        //         `
+                        //     });
+
+                            
+                        // html += `
+                        //     <div class="form-group ">
+                        //     <label class="col-form-label" for="txt_${index}">${element.label} </label>
+                            
+                                
+                        //         <select name="txt_${index}" id="txt_${index}" data-field="${index}" class="form-control select">
+                        //             <option value="">Select ${element.label} </option>
+                        //             ${opt}
+                        //         </select>
+                                
+                            
+                        // </div>
+                        // `
+                        // }
+                    });
+                    
+                    $('#dynamic-div').html(html)
+                }
+            });
+}
+
+  function onLoad(){
+    $.ajax({
+                type: "GET",
+                url: "/drone/drone-details/getSchema/",
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: {},
+                success: function (data) {
+                    data = JSON.parse(data.schema)
+                    console.log(JSON.parse(data[0].fields.conf_value))
+                    html = ''
+                    $.each(JSON.parse(data[0].fields.conf_value), function(index, element) {
+                        
+                        
+                        if(element.type == 'string'){
+                        html += `
+                            <div class="form-group ">
+                                <label class="col-form-label" for="txt_wheel-base">${element.label} </label>
+                                
+                                    
+                                    <input type="text"  id="txt_${index}"  name="txt_${index}" data-field="${index}" class="form-control"  autocomplete="off" value="">
+                                    <span class="has-error text-danger pull-right txt_${index}_error"></span>
+                                    
+                                
+                            </div>
+                        `
+                        }
+                        if(element.type == 'list'){
+                            opt = ''
+                            $.each(element.allowed, function(i, e) {
+                                console.log(i,e)
+                                opt += `
+                                <option value="${e}">${e}</option>
+                                `
+                            });
+
+                            
+                        html += `
+                            <div class="form-group ">
+                            <label class="col-form-label" for="txt_${index}">${element.label} </label>
+                            
+                                
+                                <select name="txt_${index}" id="txt_${index}" data-field="${index}" class="form-control select">
+                                    <option value="">Select ${element.label} </option>
+                                    ${opt}
+                                </select>
+                                
+                            
+                        </div>
+                        `
+                        }
+                    });
+                    
+                    $('#dynamic-div').html(html)
+                    $('.select').select2();
+
+                    // $('#dynamic-div div div').each(function(){
+                    // console.log($(this).find('.form-control').attr('data-field'))
+                    // });
+
+                    // $('#dynamic-div div div').each(function(){
+                    // console.log($(this).find('.form-control').val())
+                    // });
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });
+  }
+
+    $(document).ready(function () {
+
+        // $( "#activation_date" ).datepicker();
+        // onLoad();
+        $('#a-config').css('display','none')
+        $("#btn-upload").on('change',function(){
+            $('#a-config').css('display','block')
+        })
+        $('.multiple-select').select2();
+        $('.select').select2();
+        $('#output').on('click',function(){
+            $('#btn-upload').trigger('click');
+        })
+
+        $('#view_img').on('click',function(){
+            $("#imgModal").modal();
+        })
+
+        $('#view_mdi_img').on('click',function(){
+            $("#imgMDIModal").modal();
+        })
+        $(document).on("change", ".file_multi_video", function(evt) {
+        var $source = $('#video_here');
+        $source[0].src = URL.createObjectURL(this.files[0]);
+        $source.parent()[0].load();
+        });
+
+        $('#sb_drone_type').on('change',function(){
+            loadFeatures($(this).val())
+        })
+
+        $('#btn-ok').on('click',function(){
+            items = []
+            if($('#txt_x').val()!='' && $('#txt_y').val()!='' && $('#txt_title').val()!='' && $('#txt_desc').val()!='' )
+            {
+                $('#addrow').trigger('click')
+            }
+            $('#clientMaster tbody').find('tr.tr_data').each(function (i, el) {
+                var $tds = $(this).find('td')
+                x = $.trim($tds.eq(0).text())
+                y = $.trim($tds.eq(1).text())
+                title = $.trim($tds.eq(2).text());
+                desc = $.trim($tds.eq(2).text());
+                // console.log(desc)
+                items.push(
+                    {x: x, y: y, title:title,desc:desc}
+                );
+            // do something with productId, product, Quantity
+            });
+            console.log(items)
+        })
+
+        $('#addrow').on('click',function(){
+            
+
+            console.log($(this).parent().parent().find('td').find('input').val())
+            x = $(this).parent().parent().find('td').find('#txt_x').val()
+            y = $(this).parent().parent().find('td').find('#txt_y').val()
+            title = $(this).parent().parent().find('td').find('#txt_title').val()
+            desc = $(this).parent().parent().find('td').find('#txt_desc').val()
+            console.log(desc)
+            if(x!='' && y!='' && title!='' & desc !='')
+            {
+                // $('#addBtn').on('click', function () {
+    
+    // Adding a row inside the tbody.
+                $( ".dot" ).remove();
+                $('#clientMaster tbody  tr:last').before(`
+                <tr class="table_row tablecontent tr_data" >
+                                <td style="width: 20%;">
+                                    ${x}
+                                </td>
+                                <td style="width: 20%;">
+                                    ${y}
+                                </td>
+                                <td style="width: 35%;">
+                                    ${title}
+                                </td>
+                                <td style="width: 35%;">
+                                    ${desc}
+                                </td>
+                                
+                                <td>
+                                    
+                                    <a class="btn btn-xs btn-danger btn-del" title="Delete"
+                                        ><span class="glyphicon glyphicon-trash"></span>
+                                    </a> 
+                                    
+                                </td>
+                            </tr>
+                `);
+
+                $('#txt_x').val('')
+                $('#txt_y').val('')
+                $('#txt_title').val('')
+                $('#txt_desc').val('')
+                    }
+// });
+
+        })
+
+        $(document).on("click",".btn-del",function() {
+                $(this).closest('tr').remove();
+        });
+        
+        $( "#test img" ).click(function(e) {
+            // console.log('fsdfsfsdf')
+            $( ".dot" ).remove();
+        var top_offset = $(this).offset().top - $(window).scrollTop();
+        var left_offset = $(this).offset().left - $(window).scrollLeft();
+
+        var top_px = Math.round( (e.clientY - top_offset - 12) );
+        var left_px = Math.round( (e.clientX - left_offset - 12) );
+        
+        var top_perc = top_px / $(this).height() * 100;
+        var left_perc = left_px / $(this).width() * 100;
+        
+        // alert('Top: ' + top_px + 'px = ' + top_perc + '%');
+        // alert('Left: ' + left_px + 'px = ' + left_perc + '%');
+        
+        var dot = '<div class="dot" style="top: ' + top_perc + '%; left: ' + left_perc + '%;"></div>';
+        
+        $(dot).hide().appendTo($(this).parent()).fadeIn(350);;
+        
+        $( ".dot" ).draggable({
+            containment: ".test",
+            stop: function( event, ui ) {
+            var new_left_perc = parseInt($(this).css("left")) / ($(".test").width() / 100) + "%";
+            var new_top_perc = parseInt($(this).css("top")) / ($(".test").height() / 100) + "%";
+            var output = 'Top: ' + parseInt(new_top_perc) + '%, Left: ' + parseInt(new_left_perc) + '%';
+            
+            $(this).css("left", parseInt($(this).css("left")) / ($(".test").width() / 100) + "%");
+            $(this).css("top", parseInt($(this).css("top")) / ($(".test").height() / 100) + "%");
+            
+            $('.output').html('CSS Position: ' + output);
+            }
+        });
+    
+    console.log("Left: " + left_perc + "%; Top: " + top_perc + '%;');
+    $('.output').html("CSS Position: Left: " + parseInt(left_perc) + "%; Top: " + parseInt(top_perc) + '%;');
+    });
+        
+        $('#test').click(function(e) {
+           var $this = $(this); // or use $(e.target) in some cases;
+           
+            var offset = $this.offset();
+            var width = $this.width();
+            var height = $this.height();
+            var posX = offset.left;
+            var posY = offset.top;
+            // var x = e.pageX;
+                
+                
+            // var y = e.pageY;
+                
+            //  $('#txt_x').val(x)   
+            //  $('#txt_y').val(y)   
+            // console.log(x+'% '+y+'%');
+
+            var x = e.pageX-posX;
+                x = parseInt(x/width*100,10);
+                x = x<0?0:x;
+                x = x>100?100:x;
+            var y = e.pageY-posY;
+                y = parseInt(y/height*100,10);
+                y = y<0?0:y;
+                y = y>100?100:y;
+                $('#txt_x').val(x)   
+                $('#txt_y').val(y)
+
+                
+          });
+
+        
+        $('#a-config').on('click',function(){
+            $('#modal-config').modal();
+        })
+        $('.btn-reset').on('click',function(){
+            $('#frmDrone')[0].reset();
+            $(".multiple-select").val([]).change();
+            $(".select").val('').trigger('change')
+            // $(".select").val($(".select option:first").val()).trigger('change');
+        })
+
+        $('#sb_drone_purpose').on('change',function(){
+            formdata = {
+                'id': $(this).val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/drone/drone-details/get_drone_type/",
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: JSON.stringify(formdata),
+                success: function (data) {
+                    $('#sb_drone_type').html('')
+                    opt = '<option value="">Select Drone Type</option>'
+                    if(data.data !=''){
+                        resp = JSON.parse(data.data)
+                        for(var k in resp) {
+                            opt += "<option value='"+resp[k].pk+"'>" + resp[k].fields.name + "</option>"
+                        }
+                    }
+                    $('#sb_drone_type').html(opt)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });
+        })
+
+        // $('#country').on('change',function(){
+
+        //     formdata = {
+        //         'id': $(this).val()
+        //     }
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/masters/customers/get_state/",
+        //         dataType: 'json',
+        //         headers: {
+        //             'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+        //         },
+        //         data: JSON.stringify(formdata),
+        //         success: function (data) {
+        //             $('#state').html('')
+        //             opt = '<option value="">State</option>'
+        //             if(data.data !=''){
+        //                 resp = JSON.parse(data.data)
+        //                 for(var k in resp) {
+        //                     opt += "<option value='"+resp[k].pk+"'>" + resp[k].fields.name + "</option>"
+        //                 }
+        //             }
+        //             $('#state').html(opt)
+        //         },
+        //         error: function (e) {
+        //             console.log(e)
+        //         }
+        //     });
+        // })
+        
+
+        // Add Role
+        $("#frmDrone").submit(function (event) {
+            event.preventDefault();
+            $( ".dot" ).remove();
+            schema_data = {}
+            $('#dynamic-div div').each(function(){
+                value  = $(this).find('.form-control').val()
+                key = $(this).find('.form-control').attr('data-field')
+
+                schema_data[key] = value
+            });
+
+            items = []
+            $('#clientMaster tbody').find('tr.tr_data').each(function (i, el) {
+                var $tds = $(this).find('td')
+                x = $.trim($tds.eq(0).text())
+                y = $.trim($tds.eq(1).text())
+                title = $.trim($tds.eq(2).text());
+                desc = $.trim($tds.eq(3).text());
+                // console.log(desc)
+                items.push(
+                    {x: parseInt(x), y: parseInt(y), Title:title,Message:desc}
+                );
+            // do something with productId, product, Quantity
+            });
+
+            var form = $('#frmDrone')[0];
+                var formData = new FormData(form);
+                
+                formData.append("img_hotspot", JSON.stringify(items));
+                formData.append("schema_data", JSON.stringify(schema_data));
+                var input = document.querySelector('#btn-upload'),
+                file = input.files[0];
+                if(file == undefined)
+                    file = ''
+                formData.append("file", file);
+
+                var input = document.querySelector('#btn-mdi'),
+                file = input.files[0];
+                if(file == undefined)
+                    file = ''
+                formData.append("mdi_file", file);
+
+                // 
+                if($('#status').is(":checked"))
+                    formData.append("active", true);
+                else
+                    formData.append("active", false);
+                
+                var sb_battery = $("#sb_battery option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+
+                var sb_sensor = $("#sb_sensor option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+
+                var sb_camera = $("#sb_camera option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+
+                var sb_rc = $("#sb_rc option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+
+                var sb_fc = $("#sb_fc option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+
+                var sb_qgc = $("#sb_qgc option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+
+                var sb_frame = $("#sb_frame option:selected").map(function() {
+                    return $(this).data("cat");
+                }).get();
+                formData.append("battery_cat", [...new Set(sb_battery)]);
+                formData.append("sensors_cat", [...new Set(sb_sensor)]);
+                formData.append("camera_cat", [...new Set(sb_camera)]);
+                formData.append("rc_cat", [...new Set(sb_rc)]);
+                formData.append("fc_cat", [...new Set(sb_fc)]);
+                formData.append("qgc_cat", [...new Set(sb_qgc)]);
+                formData.append("frame_cat", [...new Set(sb_frame)]);
+                
+            console.log(formData)
+            $.ajax({
+                type: "POST",
+                url: "/drone/drone-details/add/",
+                dataType: 'json',
+                processData: false, contentType: false ,
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').attr('value')
+                },
+                data: formData,//JSON.stringify(formdata),
+                success: function (data) {
+                    $('.has-error').html('');
+                    if (data.success  == true ) {
+                        // $('#roleModal').modal('hide');
+                        $("#infoModal").find('.modal-title').html('Success');
+                        $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                        $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        $("#infoModal").modal().on('hidden.bs.modal', function () {
+                            location.reload();
+                        });
+                    } 
+                    // else if(data.success =='exist'){
+                    //     // $('#roleModal').modal('hide');
+                    //     $("#infoModal").find('.modal-title').html('Warning');
+                    //     $("#infoModal").find('.modal-body').html(`${data.msg}`);
+                    //     $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                        
+                    //     $("#infoModal").modal();
+                    // }
+                    else {
+                        $.each(data.errors, function (key, value) {
+                            $(`.${key}_error`).html(`${value[0]}`);
+                        });
+                    }
+                },
+                error: function (e) {
+                    $('#roleModal').modal('hide');
+                    $("#infoModal").find('.modal-title').html('Error');
+                    $("#infoModal").find('.modal-body').html(`${e.responseJSON.msg}`);
+                    $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+                    $("#infoModal").modal();
+                }
+            });
+        });
+
+        // Edit ERP
+        // $(".btnEdit").click(function () {
+        //     $('#roleModal').find('.has-error').html('');
+        //     $('#roleModal').find('.modal-title').html('Edit Role');
+        //     var id = $(this).attr('rel');
+        //     $('#roleModal').find('#roleid').val(id);
+        //     $('#roleModal').find('#role').val($(this).closest('tr').find("td:eq(1)").text());
+        //     $('#roleModal').find('#description').val($(this).closest('tr').find("td:eq(2)").text());
+        //     $('#group').val(JSON.parse($(this).closest('tr').find("td:eq(3)").text())).trigger('change');
+        //     $("#roleModal").modal({
+        //         keyboard: false
+        //     });
+        // });
+
+        // $(".btnDel").click(function (e) {
+        //     e.preventDefault();
+        //     var link = $(this).attr('href');
+        //     var id = $(this).data('id');
+        //     $('#confirm').modal({
+        //         backdrop: 'static',
+        //         keyboard: false
+        //     }).on('click', '#delete', function (e) {
+        //         $.ajax({
+        //             headers: { "X-CSRFToken": '{{csrf_token}}' },
+        //             type: "DELETE",
+        //             dataType: 'json',
+        //             url: `${link}/?id=${id}`,
+        //             data: {},
+        //             beforeSend: function () { },
+        //             success: function (data) {
+        //                 if (data.success) {
+        //                     window.location.href = data.url;
+        //                 } else {
+        //                     $("#infoModal").find('.modal-title').html('Error');
+        //                     $("#infoModal").find('.modal-body').html(`${data.msg}`);
+        //                     $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+        //                     $("#infoModal").modal();
+        //                 }
+        //             }, error: function (error) {
+        //                 $("#infoModal").find('.modal-title').html('Error');
+        //                 $("#infoModal").find('.modal-body').html(`${error.responseJSON.msg}`);
+        //                 $('#infoModal .footer-button').html('<button class="btn btn-sm btn-success" data-dismiss="modal" type="button">Close</button>');
+        //                 $("#infoModal").modal();
+        //             }
+        //         })
+        //     }).on('hidden.bs.modal', function (e) {
+        //         $(e.currentTarget).unbind();
+        //     });
+        // });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,129 @@
+// .main{
+//     display: flex;
+//     gap:10px;
+// }
+// .input-container{
+//     width: 50%;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 10px;
+//     padding: 0 10px;
+// }
+// .form-group{
+//     display: flex;
+//     flex-direction: column;
+//     gap:4px;
+// }
+// .btn-div{
+//     display: flex;
+//     width: 98%;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-top: 10px;
+//     padding: 0 10px;
+//     gap: 10%;
+// }
+// .error{
+//     color: red;
+// }
+// .form-control{
+//     height: 29px;
+//     border-radius: 4px;
+//     border: 1px solid #ddd;
+//     padding: 0 10px;
+// }
+// table, th , td {
+//     border: 1px solid grey;
+//     border-collapse: collapse;
+//     padding: 5px;
+//   }
+//   table tr:nth-child(odd) {
+//     background-color: #f1f1f1;
+//   }
+  
+//   table tr:nth-child(even) {
+//     background-color: #ffffff;
+//   }
+body{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Work Sans';
+    // height: 100vh;
+    overflow-x: hidden;
+    width: 100vw;
+    background: #F6F6F6 !important;
+}
+.userlist-head{
+    color: #4B4A50;
+    font-size: 14px;
+    font-weight: 600;
+    padding:16px 16px 10px 0 ;
+}
+.userlist-body{
+    color: #6F6E73;
+    font-size: 14px;
+    font-weight: 500;
+    padding:12px 16px 0 0;
+}
+.panel-heading{
+    color: #4B4A50;
+    font-size: 26px;
+    font-weight: 600;
+    // padding-top:40px;
+    // padding-left:32px;
+    padding: 12px 24px 0 24px;
+
+}
+.project-list{
+    background-color: #FFFFFF; 
+    margin:24px 24px 24px 24px;
+    // padding : 8px 16px 0 16px;
+    padding:0;
+}
+.table th{
+    border-top: none !important;
+    border-bottom: 1px solid #E3E3E3 !important;
+}
+.table td{
+    border-top: none !important;
+    border-bottom: 1px solid #F6F6F6 !important;
+}
+.add-icon{
+    margin-top: 18px;
+ }
+.add-icon:active, .add-icon:hover{
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+
+.btn-info:not(:disabled):not(.disabled):active:focus, .show>.btn-info.dropdown-toggle:focus {
+    box-shadow:0 0 0 0.2rem #fde8dd !important
+}
+.btn-info.focus, .btn-info:focus {
+    box-shadow:0 0 0 0.2rem #fde8dd !important
+}
+
+.btn-danger:not(:disabled):not(.disabled):active:focus, .show>.btn-info.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem #fa9260 !important;
+}
+.btn-danger.focus, .btn-danger:focus {
+    box-shadow:  0 0 0 0.2rem #fa9260  !important;
+}
+.search-box {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    margin: 0px 34px 0px 24px;
+}
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+@media only screen and (max-width: 820px) {
+    .search-box {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        margin: 0px 44px 0px 24px;
+    }
+}
+@media only screen and (min-width: 1500px) {
+    .search-box {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        margin: 0px 24px 0px 24px;
+    }
+}

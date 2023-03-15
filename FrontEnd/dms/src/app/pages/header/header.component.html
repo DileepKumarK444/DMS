@@ -1,0 +1,160 @@
+<div class="header">
+    <!-- <a href="#default" class="logo">DMS</a> -->
+    <div class="d-flex justify-content-between align-items-center" style = "height: 64px;width: 100%;">
+      <div>
+        <a [routerLink]="" (click)="LogoClick()"  class="btn btn-sm btn-default" style="padding:0; ">
+          <img class ="img-logo" src = "../../assets/img/logonewW.svg" style="height: 28px;margin-left: 24px;">
+        </a>
+      </div>
+      <div class = "navbar">
+        <div>
+          <div class="subnav" (mouseenter)="mouseEnter('drone')" (mouseleave)="mouseLeave('drone')" >
+            <button class="subnavbtn">
+              <img  *ngIf="menu_active=='drone'"  class="main-menu-icon" src="../../../assets/img/dronemenuO.svg" style="height: 20px;">
+              <img  *ngIf="menu_active!='drone'"  class="main-menu-icon" src="../../../assets/img/dronemenuW.svg" style="height: 20px;"> 
+              Drone </button>
+            <div class="subnav-content">
+              <div>
+                <a [routerLink]="" (click)="DroneList()">Dashboard</a>
+                <div *ngIf ="!dronelen">
+                  <span style="padding: 8px 24px;">Drones</span>
+                </div>
+                <!-- submenu_icon.png -->
+                <!-- {{dronelist|json}} -->
+                <div *ngFor="let drone of dronelist; let id = index" >
+                <a class = "drone-icon-a"[routerLink]="" (click)="DroneDetail(drone.id)"><img  *ngIf="menu_active"  class="sub-menu-icon"  src="../../../assets/img/dronesubmenu.svg" >{{drone.model}}</a>
+              </div>
+              </div>           
+            </div>
+          </div> 
+          <div *ngIf='projectmenu_permission' class="subnav" (mouseenter)="mouseEnter('project')" (mouseleave)="mouseLeave('project')" >
+            <button class="subnavbtn" (click)="ProjectList()">
+              <img  *ngIf="menu_active=='project'" class="main-menu-icon"   src="../../../assets/img/projectmenuO.svg" style="height: 20px;">
+              <img  *ngIf="menu_active!='project'" class="main-menu-icon"   src="../../../assets/img/projectmenuW.svg" style="height: 20px;">Project</button>
+          </div>
+          <div *ngIf='usermenu_permission' class="subnav" (mouseenter)="mouseEnter('user')" (mouseleave)="mouseLeave('user')" >
+            <button class="subnavbtn" (click)="UserList()">
+              <img  *ngIf="menu_active=='user'" class="main-menu-icon"   src="../../../assets/img/usermenuO.svg" style="height: 20px;">
+              <img  *ngIf="menu_active!='user'" class="main-menu-icon"   src="../../../assets/img/usermenuW.svg" style="height: 20px;">User</button>
+          </div>
+        </div>
+      </div>
+      <!-- dToD = int(daysToDday) -->
+      <div *ngIf="daysToDday==release_days || daysToDday<release_days" class="timer" style="color:#fff;font-size: 14px;">
+        <span>AVM {{version}} will release in </span>
+        <span id="days"> {{daysToDday}} </span>Day(s)
+        <span id="hours"> {{hoursToDday}} </span>Hrs 
+        <span id="minutes"> {{minutesToDday}} </span>Min
+        <span id="seconds"> {{secondsToDday}} </span>S
+    </div>
+    <!-- <div class="header-left">
+      <a class="active" href="#menu1">Menu 1</a>
+      <a href="#menu2">Menu 2</a>
+      <a href="#menu3">Menu 3</a>
+    </div> -->
+    <!-- <div style = "height: 80px;">
+      <div class="navbar">
+        <a href="#home">Home</a>
+        <div class="subnav">
+          <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+          <div class="subnav-content">
+            <a href="#company">Company</a>
+            <a href="#team">Team</a>
+            <a href="#careers">Careers</a>
+          </div>
+        </div> 
+      </div>
+ -->
+
+
+
+    <!-- mouseenter&mouseleave -->
+      <!-- <div *ngIf="menu_active" class="submenu" style="
+    width: 215px;
+    min-height: 150px;
+    background-color: white;
+    position: absolute;
+    left: 455px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    z-index: 1;
+"><ul _ngcontent-ujc-c49="" style="
+    margin: 0;
+    padding: 0;
+"><li _ngcontent-ujc-c49="" style="
+    height: 69px;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    background: #FDD2BD;
+    color: #F75506;
+"> Adler </li></ul></div>
+    </div> -->
+
+
+
+
+    <div class="header-right">
+      <div class = "d-flex">
+        <!-- <a class="profile" [routerLink]="" (click)="Profile()" >My Profile</a>
+        <a class="logout" [routerLink]="" (click)="Logout()" >Logout</a> -->
+        <!-- <div> -->
+          <li class = "rightmenu-li" style="padding-right:0px"><img class ="img-logo" src = "../../../assets/img/settingsW.svg" style="height:20px;cursor:pointer;border-right:1px solid #FFFFFF !important;padding-right:12px;"><a [routerLink]="" (click)="ProjectList()"><i class=""></i></a></li>
+        <!-- </div> -->
+        <!-- <div> -->
+          <li class = "rightmenu-li"><img class ="cl-help" (click)="UserList1()" src = "../../../assets/img/notificationW.svg" style="height: 20px;cursor:pointer;"><a [routerLink]="" (click)="UserList1()" ><i class=""></i></a>
+          
+            <ul class="dropdown-menu-new extended logout" style="width: 262px !important; /* height: 151px; */ background: #FFFFFF !important;display: flex;flex-direction: column;gap: 16px;justify-content: space-around;box-shadow: 5px 5px 12px #ddd;padding:16px 16px !important;" *ngIf="help">
+              <div>
+                <button class="cust-btn-primary form-control" style="cursor:pointer;" (click)="downloadHelp()">Download Help</button>
+              </div>
+             
+                
+            </ul>
+          </li>
+        <!-- </div> -->
+        <!-- <div> -->
+          <li class="dropdown" >
+            <a data-toggle="dropdown" class="dropdown-toggle1"  aria-expanded="true">
+                <!-- <img alt="Prashob" src="/static/img/avatar.png" width="20"> -->
+                <!-- <div> -->
+                  <a  class="btn btn-sm btn-default" style="padding:0; cursor: default;" >
+                    <img class ="img-logo" *ngIf="image" (click)="profileMenuClick()" [src]="image" style="height: 32px;border-radius: 50%; width:32px; object-fit: cover; cursor:pointer;">
+                    <i class="fa fa-chevron-down mr-2 profile-down" (click)="profileMenuClick()" style="font-size:12px; margin-left:8px; color:#fff;cursor: pointer;"></i>
+
+                  </a>
+
+                <!-- </div>            -->
+
+                <!-- <span class="username">{{name}}</span> -->
+                <!-- <b class="caret"></b> -->
+            </a>
+            <ul class="dropdown-menu-new extended logout" style="width: 262px !important; /* height: 151px; */ background: #FFFFFF !important;display: flex;flex-direction: column;gap: 16px;justify-content: space-around;box-shadow: 5px 5px 12px #ddd;padding:16px 16px !important;" *ngIf="pClickSt">
+              <div class="row">
+                <div class="col-sm-3" style="padding:0;">
+                  <img *ngIf="image" [src]="image" style="height: 40px; width: 40px; object-fit: cover; border-radius: 50%; border: 1px solid #D8D8D8;">
+                </div>
+                <div class="col-sm-9" style="display: flex;flex-direction: column;/* justify-content: flex-start; */padding: 0;">
+                  <span style="text-align:left; font-weight:500; font-size: 18px;">{{name}} {{last_name}}</span>
+                  <span style="text-align:left; font-weight:400; font-size:12px;">{{username}}</span>
+                </div>                
+              </div>
+              <div>
+                <button class="cust-btn-primary form-control" style="cursor:pointer;" (click)="Profile()">Profile</button>
+              </div>
+                <div>
+                  <a class= "logout" [routerLink]="" (click)="Logout()" style="display: flex;align-items: center;gap: 6px;">
+                    <img class ="img-logo" src = "../../../assets/img/logout.svg" style="height: 16px;">
+                    Logout</a>
+                </div>
+                
+            </ul>
+          </li>
+        <!-- </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>

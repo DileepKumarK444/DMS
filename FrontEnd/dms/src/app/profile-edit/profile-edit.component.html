@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="container emp-profile">
+    <div class="row">
+    <form action="">
+        <div class="panel panel-info">
+            <div class="panel-heading">Update Profile</div>
+            <div class="panel-body">
+
+                <div class="main">
+                        <div class="input-container" >
+                            <div class="form-group">
+                                <label class="label">First Name</label>
+                                <input type="text" [value]="first_name" name="first_name" id="first_name"  class="form-control" [(ngModel)]="first_name">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">last Name</label>
+                                <input type="text" [value]="last_name" name="last_name" id="last_name" class="form-control" [(ngModel)]="last_name" >
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Email</label>
+                                <input type="text" [value]="email" name="email" id="email" class="form-control" [(ngModel)]="email" >
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Phone</label>
+                                <input type="text" [value]="phone" name="phone" id="phone" class="form-control" [(ngModel)]="phone">
+                            </div>
+                        </div>
+                        
+
+                </div>
+                <div class="error-field">
+                    <span class="error">{{error}}</span>
+                </div>
+                <div class="btn-div btn-sm btn-default pull-right">
+                    <button type = "button" class="btn btn-info" (click)="UpdateProfile()">Save</button>
+                    <button type = "button" class="btn btn-info" (click)="OnCancel()">Cancel</button>
+                </div>
+            </div>
+          </div>
+        
+        
+    </form>
+</div>
+</div>
+
+    <app-footer></app-footer>

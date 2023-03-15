@@ -1,0 +1,21 @@
+[DESIGN]
+
+# Maximum number of locals for function / method body
+max-locals=50
+
+# Maximum number of arguments for function / method
+max-args=10
+
+[FORMAT]
+max-line-length=240
+
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=40
+
+[MASTER]
+
+# Add <file or directory> to the black list. It should be a base name, not a
+# path. You may set this option multiple times.
+ignore=tests.py, migrations

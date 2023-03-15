@@ -1,0 +1,199 @@
+body{
+  margin:0;
+  padding: 0;
+  // box-sizing: border-box;
+  font-family: 'Work Sans', sans-serif;
+  // height: 100vh;
+  overflow-x: hidden;
+  width: 100vw;
+  background: #F6F6F6 !important;
+}
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border-bottom: 1px solid #E3E3E3;
+  background-color: #F6F6F6;
+  padding-left: 24px;
+}
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  // padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+  border-bottom: 2px solid #F97738;
+  color: #F97738;
+}
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.active{
+  background: #ddd;
+}
+.smry_div div{
+  width: 200px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: antiquewhite;
+  flex-direction: column;
+}
+.tinyfont{
+  font-size: 14px;
+  font-weight: 400;
+  color: #6F6E73;
+}
+.bigfont{
+font-size: 16px;
+font-weight: 500;
+color: #4B4A50;
+}
+.drone_head{
+  font-size: 26px;
+  font-weight: 600;
+  margin-left: 24px;
+  padding-top: 12px;
+  margin-bottom: 24px;
+  color: #4B4A50;
+}
+.section1{
+  background-color: #FFFFFF !important;
+}
+.London .col-sm-4{
+  padding: 0; 
+  margin: 0;
+}
+.section2{
+  margin-right: 48px;
+}
+.video-section{
+  background-color: #FFFFFF !important;
+}
+.sec-gen{
+  margin:0px 0px 24px 0px ;
+  padding:16px 8px 16px 16px ;
+  gap:12px;
+  background-color: #FFFFFF !important;
+}
+@media only screen and (max-width: 820px) {
+  .sec-gen{
+    height:80%;
+  }
+}
+.param2 .bigfont{
+  padding-bottom: 8px;
+}
+.param1{
+  display: flex;
+  align-items: center;
+}
+.checklist{
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.card-check{
+  background-color: #FFFFFF !important;
+}
+.card-header{
+  background-color: #FFFFFF !important;
+  margin:0;
+  padding:0;
+}
+.tinyfont-checklist{
+  font-size: 12px;
+  font-weight: 500;
+}
+.tinyfont-unchecked{
+  font-size: 12px;
+  font-weight: 400;
+}
+.bigfont-checklist{
+font-size: 16px;
+font-weight: 600;
+color: #4B4A50;
+}
+.inside-checklist{
+  font-size: 14px;
+  font-weight: 400;
+  padding: 14px 16px 15px 16px;
+  margin: 0;  
+}
+.save-checklist{
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff !important;
+    background-color: #F97738 !important;
+    border-color: #F97738 !important;
+    height:40px;
+    cursor: pointer;
+}
+.save-checklist:hover, .save-checklist:active, .save-checklist:focus, .save-checklist:focus-visible {
+  box-shadow: 1px 1px 10px 1px #E3E3E3  !important;
+  transform: scale(1.02);
+  color: #fff !important;
+  background-color: #F97738 !important;
+  border-color: #F97738 !important;
+}
+.upcoming{
+  background-color: #FFFFFF !important;
+}
+.font-orange{
+  color: #F75506;
+}
+.font-schedule-head{
+  font-size: 14px;
+  font-weight: 500;
+  color: #4B4A50;
+}
+.font-schedule-body{
+  font-size: 14px;
+  font-weight: 400;
+  color: #6F6E73;
+}
+.imageicon{
+  padding-right: 8px;
+}
+.imageicon2{
+  padding: 8px 0 0 0;
+  height:36px;
+}
+.checklistdiv{
+  background-color: #FFFFFF !important;
+}
+.tablinks{
+  padding: 0;
+  margin-right: 32px;
+  padding-bottom: 8px;
+  
+}
+.tablinks:hover, .tablinks:active, .tablinks:focus, .tablinks:focus-visible {
+  color: #F97738;
+  padding-left: 0;
+  margin-right: 32px;
+}
+.btn-go{
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+.btn-go:hover{
+  transform: scale(1.05);
+}
+// .mat-paginator-page-size-label {
+//   margin: 0 4px;
+//   color: #4B4A50 !important;
+// }
